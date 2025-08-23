@@ -52,7 +52,7 @@ export default function Header() {
     >
       <nav className="flex justify-center items-center py-6">
         {/* Centered Navigation Container with Glass Effect */}
-        <div className="flex items-center space-x-8 px-8 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-lg">
+        <div className="flex items-center space-x-8 px-8 py-3 rounded-full backdrop-blur-md border border-white/20 shadow-lg bg-white/5">
           {navigation.map((item) => (
             <button
               key={item.name}
@@ -61,7 +61,7 @@ export default function Header() {
                 "text-sm font-medium transition-all duration-300 hover:text-brand-500 relative",
                 activeSection === item.href
                   ? "text-brand-500"
-                  : "text-white/80 hover:text-white"
+                  : "text-white/90 hover:text-white"
               )}
             >
               {item.name}
