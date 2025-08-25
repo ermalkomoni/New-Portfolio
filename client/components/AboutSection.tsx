@@ -1,4 +1,5 @@
 import { GraduationCap, Briefcase, Calendar, MapPin } from "lucide-react";
+import portfolioImage from "../images/portofolioimage.jpg";
 
 const education = [
   {
@@ -46,9 +47,10 @@ export default function AboutSection() {
             <div className="relative">
               <div className="w-96 h-96 rounded-3xl overflow-hidden border border-border shadow-2xl shadow-brand-500/10">
                 <img
-                  src="/placeholder.svg"
+                  src={portfolioImage}
                   alt="Ermal Komoni - About"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center"
+                  style={{ imageRendering: 'auto' }}
                 />
               </div>
               {/* Decorative elements */}
