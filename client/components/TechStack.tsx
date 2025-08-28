@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
 interface TechItem {
@@ -17,46 +17,50 @@ const TechIcon = ({
   tech, 
   index, 
   isCenter, 
-  distanceFromCenter 
+  distanceFromCenter,
+  onClick
 }: { 
   tech: TechItem; 
   index: number;
   isCenter: boolean;
   distanceFromCenter: number;
+  onClick: () => void;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Calculate scale and opacity based on distance from center with more eased fading
-  const scale = isCenter ? 1.4 : Math.max(0.85, 1 - Math.abs(distanceFromCenter) * 0.08);
-  const opacity = isCenter ? 1 : Math.max(0.6, 1 - Math.abs(distanceFromCenter) * 0.10);
-  const brightness = isCenter ? 1 : Math.max(0.8, 1 - Math.abs(distanceFromCenter) * 0.1);
+  // Calculate scale and opacity based on distance from center
+  // Center item (distance 0) = 1.6x, items get progressively smaller
+  const scale = isCenter ? 1.4 : Math.max(0.7, 1 - Math.abs(distanceFromCenter) * 0.15);
+  const opacity = isCenter ? 1 : Math.max(0.4, 1 - Math.abs(distanceFromCenter) * 0.15);
+  const brightness = isCenter ? 1 : Math.max(0.6, 1 - Math.abs(distanceFromCenter) * 0.2);
 
   return (
     <div 
-      className="relative group flex-shrink-0"
+      className="relative group flex-shrink-0 cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
       style={{
         transform: `scale(${scale})`,
         opacity: opacity,
         filter: `brightness(${brightness})`,
-        transition: "all 0.3s ease-out"
+        transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)"
       }}
     >
       {/* Glass effect container */}
       <div
         className={cn(
-          "relative w-20 h-20 md:w-24 md:h-24 rounded-full transition-all duration-300 cursor-pointer",
-          "hover:scale-110 hover:-translate-y-2",
-          isHovered && "scale-110 -translate-y-2"
+          "relative w-20 h-20 md:w-24 md:h-24 rounded-full transition-all duration-500 ease-out",
+          "hover:scale-110 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-500/20",
+          isHovered && "scale-110 -translate-y-2 shadow-2xl shadow-brand-500/20"
         )}
       >
         {/* Glass effect background */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md border border-white/30 shadow-lg">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md border border-white/30 shadow-lg transition-all duration-500 ease-out">
           {/* Logo container */}
           <div className="w-full h-full flex items-center justify-center rounded-full relative z-10">
             <div className={cn(
-              "flex items-center justify-center transition-all duration-300",
+              "flex items-center justify-center transition-all duration-500 ease-out",
               isCenter ? "w-12 h-12 md:w-14 md:h-14" : "w-10 h-10 md:w-12 md:h-12"
             )}>
               {tech.logo}
@@ -67,74 +71,189 @@ const TechIcon = ({
         {/* Hover glow effect */}
         <div
           className={cn(
-            "absolute inset-0 rounded-full transition-all duration-300 pointer-events-none",
-            isHovered ? "shadow-2xl shadow-brand-500/20 bg-brand-500/5" : ""
+            "absolute inset-0 rounded-full transition-all duration-500 ease-out pointer-events-none",
+            isHovered ? "shadow-2xl shadow-brand-500/30 bg-brand-500/10" : ""
           )}
         />
+
+        {/* Subtle pulse animation for center item */}
+        {isCenter && (
+          <div className="absolute inset-0 rounded-full border-2 border-brand-500/30 animate-pulse transition-all duration-500 ease-out" />
+        )}
       </div>
 
-      {/* Ripple effect */}
-      <div 
-        className={cn(
-          "absolute inset-0 rounded-full border-2 transition-all duration-700",
-          isHovered ? "scale-150 opacity-0 border-brand-500/30" : "scale-100 opacity-0"
-        )}
-      />
+      {/* Tech name tooltip */}
+      <div className={cn(
+        "absolute top-full left-1/2 transform -translate-x-1/2 mt-4 px-3 py-1 bg-background/90 backdrop-blur-sm border border-border rounded-lg text-sm font-medium text-foreground opacity-0 transition-all duration-500 ease-out pointer-events-none whitespace-nowrap z-20",
+        isHovered && "opacity-100 translate-y-0",
+        !isHovered && "translate-y-2"
+      )}>
+        {tech.name}
+      </div>
     </div>
   );
 };
 
 export default function TechStack({ title, technologies, direction = "left" }: TechStackProps) {
-  const [centerIndex, setCenterIndex] = useState(Math.floor(technologies.length / 2));
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [centerIndex, setCenterIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);   // 🔥 Track drag start position
 
-  // Handle scroll-based animations with center-based logic
+  // Always show 7 items, so we need to create a window of 7 items
+  const ITEMS_TO_SHOW = 7;
+  const baseLength = technologies.length;
+
+  // Initialize centerIndex to the middle of the array
   useEffect(() => {
-    const handleScroll = () => {
-      if (scrollContainerRef.current) {
-        const scrollLeft = scrollContainerRef.current.scrollLeft;
-        const containerWidth = scrollContainerRef.current.clientWidth;
-        const itemWidth = 140; // Width of each item with gap
-        const paddingWidth = 160; // Width of padding on each side
-        
-        // Calculate which item should be centered
-        const adjustedScrollLeft = scrollLeft - paddingWidth;
-        const newCenterIndex = Math.round(adjustedScrollLeft / itemWidth);
-        
-        // Ensure center index stays within bounds
-        const clampedIndex = Math.max(0, Math.min(technologies.length - 1, newCenterIndex));
-        
-        if (clampedIndex !== centerIndex) {
-          setCenterIndex(clampedIndex);
-          setIsScrolling(true);
-          
-          // Reset scrolling state after animation
-          setTimeout(() => setIsScrolling(false), 300);
-        }
+    setCenterIndex(Math.floor(baseLength / 2));
+  }, [baseLength]);
+
+  // Create infinite loop array by duplicating the technologies multiple times
+  const infiniteTechnologies = [...technologies, ...technologies, ...technologies, ...technologies, ...technologies];
+  const totalInfiniteLength = infiniteTechnologies.length;
+
+  const shiftLeft = useCallback(() => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setCenterIndex(prev => {
+      const newIndex = prev - 1;
+      if (newIndex < 0) {
+        return baseLength - 1;
+      }
+      return newIndex;
+    });
+    
+    setTimeout(() => setIsTransitioning(false), 600);
+  }, [isTransitioning, baseLength]);
+
+  const shiftRight = useCallback(() => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setCenterIndex(prev => {
+      const newIndex = prev + 1;
+      if (newIndex >= baseLength) {
+        return 0;
+      }
+      return newIndex;
+    });
+    
+    setTimeout(() => setIsTransitioning(false), 600);
+  }, [isTransitioning, baseLength]);
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        shiftLeft();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        shiftRight();
       }
     };
 
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', handleScroll);
-      return () => scrollContainer.removeEventListener('scroll', handleScroll);
-    }
-  }, [technologies.length, centerIndex]);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [shiftLeft, shiftRight]);
 
-  // Auto-scroll to center item when centerIndex changes
+  // Handle mouse down/up for dragging state
   useEffect(() => {
-    if (scrollContainerRef.current && !isScrolling) {
-      const itemWidth = 140;
-      const paddingWidth = 160;
-      const targetScrollLeft = centerIndex * itemWidth + paddingWidth;
-      
-      scrollContainerRef.current.scrollTo({
-        left: targetScrollLeft,
-        behavior: 'smooth'
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleMouseDown = (e: MouseEvent) => {
+      setIsDragging(true);
+      setDragStartX(e.clientX);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+      const diff = e.clientX - dragStartX;
+
+      if (Math.abs(diff) > 50) {   // 🔥 threshold to trigger shift
+        if (diff > 0) {
+          shiftLeft();   // drag right → move carousel left
+        } else {
+          shiftRight();  // drag left → move carousel right
+        }
+        setIsDragging(false); // reset dragging after shift
+      }
+    };
+
+    const handleMouseUp = () => setIsDragging(false);
+    const handleMouseLeave = () => setIsDragging(false);
+
+    container.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    container.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      container.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+      container.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [isDragging, dragStartX, shiftLeft, shiftRight]);
+
+  // Handle wheel scrolling with debouncing - only when dragging
+  useEffect(() => {
+    let wheelTimeout: NodeJS.Timeout;
+    
+    const handleWheel = (e: WheelEvent) => {
+      if (isDragging) {
+        e.preventDefault();
+        
+        // Clear existing timeout
+        clearTimeout(wheelTimeout);
+        
+        // Debounce wheel events
+        wheelTimeout = setTimeout(() => {
+          if (e.deltaX > 0 || e.deltaY > 0) {
+            shiftRight();
+          } else {
+            shiftLeft();
+          }
+        }, 50);
+      }
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('wheel', handleWheel, { passive: false });
+      return () => {
+        container.removeEventListener('wheel', handleWheel);
+        clearTimeout(wheelTimeout);
+      };
+    }
+  }, [isDragging, shiftLeft, shiftRight]);
+
+  // Calculate which 7 items to show based on centerIndex
+  const getVisibleItems = () => {
+    const startIndex = centerIndex - 3; // Show 3 items to the left
+    const items = [];
+    
+    for (let i = 0; i < ITEMS_TO_SHOW; i++) {
+      const actualIndex = (startIndex + i + totalInfiniteLength) % totalInfiniteLength;
+      const originalIndex = actualIndex % baseLength;
+      items.push({
+        tech: infiniteTechnologies[actualIndex],
+        originalIndex,
+        actualIndex,
+        isCenter: originalIndex === centerIndex,
+        distanceFromCenter: i - 3 // Distance from center (0 = center, -3 to +3)
       });
     }
-  }, [centerIndex, isScrolling]);
+    
+    return items;
+  };
+
+  const visibleItems = getVisibleItems();
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -150,39 +269,41 @@ export default function TechStack({ title, technologies, direction = "left" }: T
           <div className="h-px bg-gradient-to-r from-brand-500 to-transparent flex-1 max-w-32"></div>
         </div>
 
-        {/* Tech Icons - Center-based scrollable container */}
-        <div className="w-full overflow-hidden">
-          <div 
-            ref={scrollContainerRef}
-            className="flex gap-8 md:gap-12 lg:gap-16 py-12 overflow-x-auto scrollbar-hide"
-            style={{
-              scrollBehavior: 'smooth',
-              scrollSnapType: 'x mandatory'
-            }}
-          >
-            {/* Add padding for centering */}
-            <div className="flex-shrink-0 w-40 md:w-48 lg:w-56"></div>
-            
-            {technologies.map((tech, index) => {
-              const distanceFromCenter = index - centerIndex;
-              return (
-                <div 
-                  key={tech.name}
-                  className="flex-shrink-0 scroll-snap-center"
-                  style={{ scrollSnapAlign: 'center' }}
+        {/* Tech Icons Carousel - Always Show 7 Items */}
+        <div 
+          ref={containerRef}
+          className="w-full overflow-hidden"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <div className="relative flex justify-center items-center py-12">
+            {/* Fixed 7-item display with smooth transitions */}
+            <div className={cn(
+              "flex gap-8 md:gap-12 lg:gap-16 transition-all duration-600 ease-out",
+              isTransitioning && "transform scale-105"
+            )}>
+              {visibleItems.map((item, index) => (
+                <div
+                  key={`${item.tech.name}-${item.actualIndex}`}
+                  className="transition-all duration-600 ease-out"
+                  style={{
+                    animationDelay: `${index * 50}ms`
+                  }}
                 >
                   <TechIcon 
-                    tech={tech} 
-                    index={index}
-                    isCenter={index === centerIndex}
-                    distanceFromCenter={distanceFromCenter}
+                    tech={item.tech} 
+                    index={item.originalIndex}
+                    isCenter={item.isCenter}
+                    distanceFromCenter={item.distanceFromCenter}
+                    onClick={() => {
+                      if (item.originalIndex !== centerIndex) {
+                        setCenterIndex(item.originalIndex);
+                      }
+                    }}
                   />
                 </div>
-              );
-            })}
-            
-            {/* Add padding for centering */}
-            <div className="flex-shrink-0 w-40 md:w-48 lg:w-56"></div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -201,6 +201,50 @@
     }
   }
 
+  /* New smooth carousel animations */
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px) scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px) scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @keyframes carouselShift {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes glassGlow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    }
+  }
+
   /* Apply animations to tech icons */
   .tech-icon {
     animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -224,6 +268,23 @@
   .tech-item:nth-child(4) { animation-delay: 300ms; }
   .tech-item:nth-child(5) { animation-delay: 400ms; }
   .tech-item:nth-child(6) { animation-delay: 500ms; }
+
+  /* Carousel transition classes */
+  .carousel-shift {
+    animation: carouselShift 0.6s ease-out;
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+  }
+
+  .slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+  }
+
+  .glass-glow {
+    animation: glassGlow 2s ease-in-out infinite;
+  }
 
   /* Timeline animations */
   .timeline-item {
