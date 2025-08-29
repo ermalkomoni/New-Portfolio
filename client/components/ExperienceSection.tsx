@@ -3,15 +3,6 @@ import TechStack from "./TechStack";
 
 const workExperience = [
   {
-    company: "SWISS GRC",
-    position: "Solution Engineer",
-    period: "2024 - Present",
-    location: "Remote",
-    description: "Leading solution engineering initiatives, developing enterprise-level applications, and collaborating with cross-functional teams to deliver innovative software solutions.",
-    technologies: ["C#", ".NET", "Azure", "React"],
-    isCurrentJob: true
-  },
-  {
     company: "SPINP Agency",
     position: "Software Developer",
     period: "2023 - 2024", 
@@ -19,6 +10,15 @@ const workExperience = [
     description: "Developed and maintained web applications using modern technologies, collaborated with design teams, and implemented responsive user interfaces for client projects.",
     technologies: ["React", "Node.js", "TypeScript", "MongoDB"],
     isCurrentJob: false
+  },
+  {
+    company: "SWISS GRC",
+    position: "Solution Engineer",
+    period: "2024 - Present",
+    location: "Remote",
+    description: "Leading solution engineering initiatives, developing enterprise-level applications, and collaborating with cross-functional teams to deliver innovative software solutions.",
+    technologies: ["C#", ".NET", "Azure", "React"],
+    isCurrentJob: true
   }
 ];
 
@@ -159,53 +159,53 @@ const backendTech = [
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="experience" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-lg text-brand-500 font-medium mb-2">Explore My</p>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <p className="text-base sm:text-lg text-brand-500 font-medium mb-2">Explore My</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent mb-4 sm:mb-6">
             Experience
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
             A journey through my professional experience and the technologies I've mastered along the way.
           </p>
         </div>
 
         {/* Work Experience Timeline */}
-        <div className="mb-20">
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
+        <div className="mb-16 sm:mb-20">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground text-center mb-8 sm:mb-12">
             Professional Journey
           </h3>
           <div className="relative max-w-4xl mx-auto">
-            {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-brand-500 to-brand-300"></div>
+            {/* Timeline line - visible on all devices, smaller on mobile */}
+            <div className="absolute left-4 sm:left-8 top-8 sm:top-10 w-0.5 h-[calc(2*160px)] sm:h-[calc(2*150px)] bg-gradient-to-b from-brand-500 to-brand-0"></div>
             
-            <div className="space-y-12">
+            <div className="space-y-8 sm:space-y-12">
               {workExperience.map((job, index) => (
-                <div key={index} className="relative flex items-start gap-8">
-                  {/* Timeline dot */}
-                  <div className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${
+                <div key={index} className="relative flex items-start gap-4 sm:gap-8">
+                  {/* Timeline dot - smaller on mobile */}
+                  <div className={`relative z-10 w-8 h-8 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-lg ${
                     job.isCurrentJob 
-                      ? 'bg-brand-500 animate-pulse' 
+                      ? 'bg-brand-500' 
                       : 'bg-secondary border-2 border-brand-500'
                   }`}>
-                    <Briefcase className={`w-8 h-8 ${
+                    <Briefcase className={`w-4 h-4 sm:w-8 sm:h-8 ${
                       job.isCurrentJob ? 'text-white' : 'text-brand-500'
                     }`} />
                   </div>
 
                   {/* Job Details Card */}
-                  <div className="flex-1 bg-card border border-border rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                  <div className="flex-1 bg-card border border-border rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 mb-4">
                       <div>
-                        <h4 className="text-xl font-bold text-foreground mb-1">{job.position}</h4>
+                        <h4 className="text-lg sm:text-xl font-bold text-foreground mb-1">{job.position}</h4>
                         <div className="flex items-center gap-2 text-brand-500 font-semibold mb-2">
                           <Building className="w-4 h-4" />
                           {job.company}
                         </div>
                       </div>
-                      <div className="flex flex-col md:items-end gap-2 text-sm text-muted-foreground">
+                      <div className="flex flex-col sm:items-end gap-2 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
                           {job.period}
@@ -217,7 +217,7 @@ export default function ExperienceSection() {
                       </div>
                     </div>
                     
-                    <p className="text-muted-foreground mb-4 leading-relaxed">
+                    <p className="text-muted-foreground mb-4 leading-relaxed text-sm sm:text-base">
                       {job.description}
                     </p>
                     
@@ -226,7 +226,7 @@ export default function ExperienceSection() {
                       {job.technologies.map((tech) => (
                         <span 
                           key={tech}
-                          className="px-3 py-1 bg-brand-500/10 text-brand-500 rounded-full text-sm font-medium"
+                          className="px-2 sm:px-3 py-1 bg-brand-500/10 text-brand-500 rounded-full text-xs sm:text-sm font-medium"
                         >
                           {tech}
                         </span>
@@ -240,7 +240,7 @@ export default function ExperienceSection() {
         </div>
 
         {/* Combined Tech Stack Slider */}
-        <div className="mt-20">
+        <div className="mt-16 sm:mt-20">
           <TechStack 
             title="Technology Stack"
             technologies={[...backendTech]}

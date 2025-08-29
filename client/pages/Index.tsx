@@ -19,7 +19,10 @@ export default function Index() {
   return (
     <div className="min-h-screen pt-16">
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <section
+        id="home"
+        className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
+      >
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Profile Image */}
@@ -27,17 +30,21 @@ export default function Index() {
               <div className="relative">
                 <div className="w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-brand-500/20 shadow-2xl shadow-brand-500/20">
                   <img
-                    src="/placeholder.svg"
+                    src="/Cropimageproject.jpeg"
                     alt="Ermal Komoni"
-                    className="w-full h-full object-cover"
+                    className="max-w-full object-[50%_20%] rounded-full"
                   />
                 </div>
+
                 {/* Online status indicator */}
-                <div className="absolute bottom-8 right-8 w-6 h-6 bg-green-500 rounded-full border-4 border-background shadow-lg"></div>
-                
-                {/* Floating elements for visual interest */}
-                <div className="absolute -top-4 -left-4 w-8 h-8 bg-brand-500 rounded-full opacity-20 animate-pulse"></div>
-                <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-brand-400 rounded-full opacity-30 animate-pulse delay-75"></div>
+                <div className="absolute bottom-10 right-8 sm:bottom-8 sm:right-5 md:bottom-10 md:right-6 lg:bottom-14 lg:right-8">
+                  <span className="relative flex h-6 w-6 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7">
+                    {/* Ping animation */}
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-[ping_2s_linear_infinite]"></span>
+                    {/* Solid dot */}
+                    <span className="relative inline-flex rounded-full h-full w-full bg-green-500"></span>
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -57,21 +64,21 @@ export default function Index() {
                 </div>
 
                 <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-                  I build exceptional digital experiences that combine beautiful design 
-                  with robust functionality. Passionate about creating solutions that 
-                  make a difference.
+                  I build exceptional digital experiences that combine beautiful
+                  design with robust functionality. Passionate about creating
+                  solutions that make a difference.
                 </p>
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <button
-                    onClick={() => scrollToSection('contact')}
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-full transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40 hover:scale-105"
-                  >
+                  <button className="inline-flex items-center gap-2 px-8 py-4 bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
                     <Mail className="w-5 h-5" />
                     Contact Info
                   </button>
-                  <button className="inline-flex items-center gap-2 px-8 py-4 bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+                  <button
+                    onClick={() => scrollToSection("contact")}
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-full transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40 hover:scale-105"
+                  >
                     <Download className="w-5 h-5" />
                     Preview CV
                   </button>
@@ -100,13 +107,6 @@ export default function Index() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-muted-foreground rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>
       </section>

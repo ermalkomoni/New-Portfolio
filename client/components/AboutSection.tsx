@@ -45,17 +45,15 @@ export default function AboutSection() {
           {/* Profile Image */}
           <div className="flex justify-center lg:justify-start">
             <div className="relative">
-              <div className="w-96 h-96 rounded-3xl overflow-hidden border border-border shadow-2xl shadow-brand-500/10">
+              <div className="w-96 h-96 lg:w-[500px] lg:h-[600px] rounded-3xl overflow-hidden border border-border shadow-2xl shadow-brand-500/10">
                 <img
-                  src={portfolioImage}
+                  // src={portfolioImage}
+                  src="/portofolioimage.jpg"
                   alt="Ermal Komoni - About"
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-center"
                   style={{ imageRendering: 'auto' }}
                 />
               </div>
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-brand-500 rounded-full opacity-20 animate-pulse"></div>
-              <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-brand-400 rounded-full opacity-30 animate-pulse delay-75"></div>
             </div>
           </div>
 
@@ -104,7 +102,7 @@ export default function AboutSection() {
             </div>
 
             {/* Work Experience Section */}
-            <div>
+            {/* <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 bg-brand-500/10 rounded-lg">
                   <Briefcase className="w-6 h-6 text-brand-500" />
@@ -129,7 +127,7 @@ export default function AboutSection() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
