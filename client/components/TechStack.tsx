@@ -256,7 +256,7 @@ export default function TechStack({ title, technologies, direction = "left" }: T
   const visibleItems = getVisibleItems();
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-8xl mx-auto">
       <div className="flex flex-col items-center space-y-16">
         {/* Title */}
         <div className={cn(
@@ -270,28 +270,36 @@ export default function TechStack({ title, technologies, direction = "left" }: T
         </div>
 
         {/* Tech Icons Carousel - Always Show 7 Items */}
-        <div 
+        <div
           ref={containerRef}
-          className="w-full overflow-hidden"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          className="w-full overflow-hidden md:overflow-visible"
+          onMouseEnter={
+            window.innerWidth >= 768
+              ? () => setIsHovered(true)
+              : null
+          }
+          onMouseLeave={
+            window.innerWidth >= 768
+              ? () => setIsHovered(false)
+              : null
+          }
         >
           <div className="relative flex justify-center items-center py-12">
             {/* Fixed 7-item display with smooth transitions */}
             <div className={cn(
-              "flex gap-8 md:gap-12 lg:gap-16 transition-all duration-600 ease-out",
-              isTransitioning && "transform scale-105"
+              "flex gap-8 md:gap-12 lg:gap-14 transition-all duration-500 ease-out",
+              isTransitioning && "transform scale-130"
             )}>
               {visibleItems.map((item, index) => (
                 <div
                   key={`${item.tech.name}-${item.actualIndex}`}
                   className="transition-all duration-600 ease-out"
                   style={{
-                    animationDelay: `${index * 50}ms`
+                    animationDelay: `${index * 40}ms`
                   }}
                 >
-                  <TechIcon 
-                    tech={item.tech} 
+                  <TechIcon
+                    tech={item.tech}
                     index={item.originalIndex}
                     isCenter={item.isCenter}
                     distanceFromCenter={item.distanceFromCenter}
