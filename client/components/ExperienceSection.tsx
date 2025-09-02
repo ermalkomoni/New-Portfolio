@@ -6,7 +6,7 @@ const workExperience = [
     company: "SPINP Agency",
     position: "Software Developer",
     period: "2023 - 2024", 
-    location: "Remote",
+    location: "Kosovo - Onsite",
     description: "Developed and maintained web applications using modern technologies, collaborated with design teams, and implemented responsive user interfaces for client projects.",
     technologies: ["React", "Node.js", "TypeScript", "MongoDB"],
     isCurrentJob: false
@@ -15,7 +15,7 @@ const workExperience = [
     company: "SWISS GRC",
     position: "Solution Engineer",
     period: "2024 - Present",
-    location: "Remote",
+    location: "Switzerland - Remote",
     description: "Leading solution engineering initiatives, developing enterprise-level applications, and collaborating with cross-functional teams to deliver innovative software solutions.",
     technologies: ["C#", ".NET", "Azure", "React"],
     isCurrentJob: true
@@ -24,22 +24,37 @@ const workExperience = [
 
 const backendTech = [
   {
-    name: ".NET",
+    name: "HTML5",
     logo: (
-      <svg viewBox="0 0 24 24" className="w-full h-full">
-        <path fill="#512BD4" d="M24 8.77h-2.468v7.565h-1.425V8.77h-2.462V7.53H24zm-6.852 7.565h-4.821V7.53h4.63v1.24h-3.205v2.494h2.953v1.234h-2.953v2.604h3.396zm-6.708 0H8.882L4.78 9.863a2.896 2.896 0 0 1-.258-.51h-.036c.032.189.048.592.048 1.21v5.772H3.157V7.53h1.659l3.965 6.32c.167.261.275.442.323.54h.024c-.04-.233-.06-.629-.06-1.185V7.529h1.372zm-8.703-.693a.868.868 0 0 1-.869.693.877.877 0 0 1-.868-.693.876.876 0 0 1 .868-.692.868.868 0 0 1 .869.692Z"/>
-      </svg>
+      <img 
+        src="/html.png" 
+        alt="HTML Logo" 
+        className="w-full h-full object-contain"
+      />
     ),
-    description: "Microsoft .NET Framework"
+    description: "Markup language"
   },
   {
-    name: "C#",
+    name: "CSS3",
     logo: (
-      <svg viewBox="0 0 24 24" className="w-full h-full">
-        <path fill="#239120" d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zM9.426 7.12a5.55 5.55 0 0 1 1.985.38v1.181a4.5 4.5 0 0 0-2.025-.566 2.9 2.9 0 0 0-1.479.4 1.4 1.4 0 0 0-.695 1.257c0 .4.153.745.459 1.036.306.29.795.596 1.466.918.67.322 1.146.71 1.428 1.164.282.455.423.974.423 1.558 0 .678-.21 1.221-.63 1.629-.42.408-.98.612-1.681.612-.577 0-1.089-.078-1.537-.235a5.45 5.45 0 0 1-1.137-.515v-1.367a4.5 4.5 0 0 0 1.137.612 3.4 3.4 0 0 0 1.253.235c.4 0 .718-.089.955-.268a.87.87 0 0 0 .356-.73c0-.306-.11-.572-.331-.798-.22-.225-.618-.484-1.194-.776a4.1 4.1 0 0 1-1.436-1.1 2.37 2.37 0 0 1-.481-1.468c0-.654.2-1.178.6-1.572.4-.394.937-.591 1.611-.591zm6.49 0c.784 0 1.39.235 1.818.705.427.47.641 1.122.641 1.956v3.562c0 .47-.126.82-.378 1.05-.252.23-.644.345-1.176.345-.784 0-1.39-.235-1.818-.705-.427-.47-.641-1.122-.641-1.956V8.515c0-.47.126-.82.378-1.05.252-.23.644-.345 1.176-.345zm-.065 1.12c-.315 0-.473.235-.473.705v3.562c0 .47.158.705.473.705.315 0 .473-.235.473-.705V8.945c0-.47-.158-.705-.473-.705z"/>
-      </svg>
+      <img 
+        src="/css.png" 
+        alt="CSS Logo" 
+        className="w-full h-full object-contain"
+      />
     ),
-    description: "Object-oriented programming"
+    description: "Styling & animations"
+  },
+  {
+    name: "PHP",
+    logo: (
+      <img 
+        src="/php.png" 
+        alt="PHP Logo" 
+        className="w-full h-full object-contain"
+      />
+    ),
+    description: "Server-side scripting"
   },
   {
     name: "Java",
@@ -51,38 +66,64 @@ const backendTech = [
     description: "Enterprise applications"
   },
   {
-    name: "PHP",
+    name: "C#",
     logo: (
-      <svg viewBox="0 0 24 24" className="w-full h-full">
-        <path fill="#777BB4" d="M7.01 10.207h-.944l-.515 2.648h.838c.556 0 .982-.122 1.278-.367.297-.245.445-.594.445-1.047 0-.705-.482-1.057-1.446-1.057zm8.943 0h-.944l-.515 2.648h.838c.556 0 .982-.122 1.278-.367.297-.245.445-.594.445-1.047 0-.705-.482-1.057-1.446-1.057zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-4.51 7.382l.788-.037c.906 0 1.491.498 1.491 1.252 0 .754-.585 1.491-1.491 1.491l-.788.037-.515-2.743zm8.943 0l.788-.037c.906 0 1.491.498 1.491 1.252 0 .754-.585 1.491-1.491 1.491l-.788.037-.515-2.743z"/>
-      </svg>
+      <img 
+        src="/csharp.png" 
+        alt="C# Logo" 
+        className="w-full h-full object-contain"
+      />
     ),
-    description: "Server-side scripting"
+    description: "Object-oriented programming"
   },
   {
-    name: "HTML5",
+    name: ".NET",
     logo: (
       <svg viewBox="0 0 24 24" className="w-full h-full">
-        <path fill="#E34F26" d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+        <defs>
+          <linearGradient id="dotnetGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style={{stopColor: '#7B68EE', stopOpacity: 1}} />
+            <stop offset="50%" style={{stopColor: '#512BD4', stopOpacity: 1}} />
+            <stop offset="100%" style={{stopColor: '#3A1F9E', stopOpacity: 1}} />
+          </linearGradient>
+        </defs>
+        
+        <path 
+          d="M24 8.77h-2.468v7.565h-1.425V8.77h-2.462V7.53H24zm-6.852 7.565h-4.821V7.53h4.63v1.24h-3.205v2.494h2.953v1.234h-2.953v2.604h3.396zm-6.708 0H8.882L4.78 9.863a2.896 2.896 0 0 1-.258-.51h-.036c.032.189.048.592.048 1.21v5.772H3.157V7.53h1.659l3.965 6.32c.167.261.275.442.323.54h.024c-.04-.233-.06-.629-.06-1.185V7.529h1.372zm-8.703-.693a.868.868 0 0 1-.869.693.877.877 0 0 1-.868-.693.876.876 0 0 1 .868-.692.868.868 0 0 1 .869.692Z" 
+          fill="url(#dotnetGradient)"
+          filter="url(#shadow)"
+        />
+        
+        <path 
+          d="M24 8.77h-2.468v7.565h-1.425V8.77h-2.462V7.53H24zm-6.852 7.565h-4.821V7.53h4.63v1.24h-3.205v2.494h2.953v1.234h-2.953v2.604h3.396zm-6.708 0H8.882L4.78 9.863a2.896 2.896 0 0 1-.258-.51h-.036c.032.189.048.592.048 1.21v5.772H3.157V7.53h1.659l3.965 6.32c.167.261.275.442.323.54h.024c-.04-.233-.06-.629-.06-1.185V7.529h1.372zm-8.703-.693a.868.868 0 0 1-.869.693.877.877 0 0 1-.868-.693.876.876 0 0 1 .868-.692.868.868 0 0 1 .869.692Z" 
+          fill="none"
+          stroke="#B8A9FF"
+          strokeWidth="0.2"
+          opacity="0.9"
+        />
       </svg>
     ),
-    description: "Markup language"
+    description: "Microsoft .NET Framework"
   },
   {
-    name: "CSS3",
+    name: "React JS",
     logo: (
-      <svg viewBox="0 0 24 24" className="w-full h-full">
-        <path fill="#1572B6" d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/>
-      </svg>
+      <img 
+        src="/react.png" 
+        alt="React JS Logo" 
+        className="w-full h-full object-contain"
+      />
     ),
-    description: "Styling & animations"
+    description: "Microsoft database"
   },
   {
     name: "SQL Server",
     logo: (
-      <svg viewBox="0 0 24 24" className="w-full h-full">
-        <path fill="#CC2927" d="M8.53 15.976h-.14c-1.199 0-2.265-.456-2.924-1.186-.66-.731-1.042-1.72-1.042-2.79s.383-2.059 1.042-2.79c.66-.731 1.725-1.186 2.924-1.186h.14c1.199 0 2.265.455 2.924 1.186.66.731 1.042 1.72 1.042 2.79s-.383 2.059-1.042 2.79c-.66.73-1.725 1.186-2.924 1.186zm7.058-7.952h-.14c-1.199 0-2.265.455-2.924 1.186-.66.731-1.042 1.72-1.042 2.79s.383 2.059 1.042 2.79c.66.731 1.725 1.186 2.924 1.186h.14c1.199 0 2.265-.455 2.924-1.186.66-.731 1.042-1.72 1.042-2.79s-.383-2.059-1.042-2.79c-.66-.731-1.725-1.186-2.924-1.186zM5.18 10.015H1.946v1.97H5.18c.544 0 .985-.441.985-.985s-.441-.985-.985-.985z"/>
-      </svg>
+      <img 
+        src="/sqlserver.png" 
+        alt="SQL Server Logo" 
+        className="w-full h-full object-contain"
+      />
     ),
     description: "Microsoft database"
   },

@@ -4,7 +4,7 @@ const projects = [
   {
     title: "Troja Restaurant",
     description: "A cross-platform web application built with .NET MVC that enables users to purchase food, make online reservations, and process payments securely through Stripe.",
-    image: "/placeholder.svg",
+    image: "/troja.png",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "MVC", color: "#0066CC" },
@@ -18,7 +18,7 @@ const projects = [
   {
     title: "TrustGuard",
     description: "A cross-platform web app with .NET and React, enabling easy purchase of diverse insurance policies with secure Stripe payments and comprehensive admin management.",
-    image: "/placeholder.svg",
+    image: "/trustguard.png",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "React JS", color: "#61DAFB" },
