@@ -3,7 +3,7 @@ import portfolioImage from "../images/portofolioimage.jpg";
 
 const education = [
   {
-    institution: "CodX",
+    institution: "CedX",
     year: "(2020)",
     degree: "Certification in Web Development",
     color: "text-brand-500"

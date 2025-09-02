@@ -4,7 +4,7 @@ const projects = [
   {
     title: "Troja Restaurant",
     description: "A cross-platform web application built with .NET MVC that enables users to purchase food, make online reservations, and process payments securely through Stripe.",
-    image: "/troja.png",
+    image: "/image.png",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "MVC", color: "#0066CC" },
@@ -12,7 +12,7 @@ const projects = [
       { name: "SQL Server", color: "#CC2927" },
       { name: "Stripe", color: "#635BFF" }
     ],
-    githubUrl: "https://github.com/ermalkomoni/troja-restaurant",
+    githubUrl: "https://github.com/ermalkomoni/RMS",
     liveUrl: "https://trojarestaurant.azurewebsites.net"
   },
   {
@@ -26,8 +26,41 @@ const projects = [
       { name: "TypeScript", color: "#3178C6" },
       { name: "Stripe", color: "#635BFF" }
     ],
-    githubUrl: "https://github.com/ermalkomoni/trustguard",
-    liveUrl: "https://trustguard-demo.azurewebsites.net"
+    githubUrl: "https://github.com/ermalkomoni/TrustGuard-Rebranded"
+  },
+  {
+    title: "SnapSend",
+    description: "A cross-platform web app built with .NET and React, enabling users to securely share self-destructing passwords or files through an intuitive interface with customizable expiration times, featuring a futuristic glowing design and strong encryption for maximum privacy.",
+    image: "/snapsend.png",
+    techStack: [
+      { name: ".NET", color: "#512BD4" },
+      { name: "React JS", color: "#0066CC" },
+      { name: "C#", color: "#239120" }
+    ],
+    githubUrl: "https://github.com/ermalkomoni/troja-restaurant",
+  },
+  {
+    title: "Sales Management System",
+    description: "A .NET and React JS app for efficient sales management, including product, sales, and invoice management with real-time information.",
+    image: "/salessystem.png",
+    techStack: [
+      { name: ".NET", color: "#512BD4" },
+      { name: "React JS", color: "#61DAFB" }
+    ],
+    githubUrl: "https://github.com/Bleronn/SMS",
+  },
+  {
+    title: "Modern Retail Marketplace",
+    description: "An interactive retail website, inspired by Nike. It offers a modern and captivating user interface, easy navigation, and an extensive selection of athletic products.",
+    image: "/ecommerce-project.png",
+    techStack: [
+      { name: "HTML", color: "#512BD4" },
+      { name: "CSS", color: "#0066CC" },
+      { name: "JavaScript", color: "#239120" },
+      { name: "PixiJS", color: "#0066CC" }
+    ],
+    githubUrl: "https://github.com/ermalkomoni/Modern-Retail-Marketplace",
+    liveUrl: "https://retail-marketplace.netlify.app/"
   }
 ];
 
@@ -36,9 +69,11 @@ export default function ProjectsSection() {
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-lg text-brand-500 font-medium mb-2">My Recent</p>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent mb-6">
+        <div className="text-center mb-8">
+          <p className="text-base sm:text-lg text-brand-500 font-medium mb-2">My Recent</p>
+          <h2 className="h-auto text-3xl sm:text-4xl md:text-5xl font-bold 
+               bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 
+               bg-clip-text text-transparent mb-4 sm:mb-6 pb-2">
             Projects
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -48,7 +83,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* Projects Grid */}
-        <div className="space-y-16 lg:space-y-24">
+        <div className="space-y-16 lg:space-y-12">
           {projects.map((project, index) => (
             <ProjectCard 
               key={project.title} 

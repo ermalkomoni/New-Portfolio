@@ -10,11 +10,11 @@ const navigation = [
 ];
 
 export default function Header() {
-  const [activeSection, setActiveSection] = useState("");
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOverWhiteBackground, setIsOverWhiteBackground] = useState(false);
 
   // Handle scroll-based visibility and glass effect
   useEffect(() => {
@@ -42,6 +42,48 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
+  // Check if header is over white/light background for contrast
+  useEffect(() => {
+    const checkBackgroundColor = () => {
+      const headerElement = document.querySelector('header');
+      if (headerElement) {
+        const rect = headerElement.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        
+        // Get element at header center position
+        const elementAtCenter = document.elementFromPoint(window.innerWidth / 2, centerY);
+        if (elementAtCenter) {
+          const computedStyle = window.getComputedStyle(elementAtCenter);
+          const backgroundColor = computedStyle.backgroundColor;
+          
+          // Check if background is white/light
+          const isLight = backgroundColor.includes('rgb(255, 255, 255)') || 
+                         backgroundColor.includes('rgb(248, 250, 252)') || // slate-50
+                         backgroundColor.includes('rgb(241, 245, 249)') || // slate-100
+                         backgroundColor.includes('rgb(226, 232, 240)');   // slate-200
+          
+          setIsOverWhiteBackground(isLight);
+        }
+      }
+    };
+
+    // Check on scroll and resize
+    const handleBackgroundCheck = () => {
+      setTimeout(checkBackgroundColor, 100); // Small delay to ensure DOM is updated
+    };
+
+    window.addEventListener('scroll', handleBackgroundCheck, { passive: true });
+    window.addEventListener('resize', handleBackgroundCheck);
+    
+    // Initial check
+    checkBackgroundColor();
+    
+    return () => {
+      window.removeEventListener('scroll', handleBackgroundCheck);
+      window.removeEventListener('resize', handleBackgroundCheck);
+    };
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId.replace('#', ''));
     if (element) {
@@ -49,7 +91,6 @@ export default function Header() {
         behavior: 'smooth',
         block: 'start',
       });
-      setActiveSection(sectionId);
       setIsMobileMenuOpen(false); // Close mobile menu after navigation
     }
   };
@@ -76,17 +117,13 @@ export default function Header() {
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
                 className={cn(
-                  "text-sm lg:text-base font-medium transition-all duration-300 hover:text-brand-500 relative",
-                  activeSection === item.href
-                    ? "text-brand-500"
-                    : "text-white/90 hover:text-white"
+                  "text-sm lg:text-base font-medium transition-all duration-300 relative",
+                  isOverWhiteBackground 
+                    ? "text-neutral-800 hover:text-brand-500" 
+                    : "text-white/90 hover:text-brand-500"
                 )}
               >
                 {item.name}
-                {/* Active indicator */}
-                {activeSection === item.href && (
-                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-brand-500 rounded-full"></div>
-                )}
               </button>
             ))}
           </div>
@@ -106,11 +143,20 @@ export default function Header() {
               )}
             >
               {isMobileMenuOpen ? (
-                <X className="w-5 h-5 text-white" />
+                <X className={cn(
+                  "w-5 h-5 transition-colors duration-300",
+                  isOverWhiteBackground ? "text-neutral-800" : "text-white"
+                )} />
               ) : (
-                <Menu className="w-5 h-5 text-white" />
+                <Menu className={cn(
+                  "w-5 h-5 transition-colors duration-300",
+                  isOverWhiteBackground ? "text-neutral-800" : "text-white"
+                )} />
               )}
-              <span className="text-sm font-medium text-white">Menu</span>
+              <span className={cn(
+                "text-sm font-medium transition-colors duration-300",
+                isOverWhiteBackground ? "text-neutral-800" : "text-white"
+              )}>Menu</span>
             </button>
           </div>
 
@@ -125,9 +171,9 @@ export default function Header() {
                       onClick={() => scrollToSection(item.href)}
                       className={cn(
                         "text-left px-4 py-3 rounded-lg font-medium transition-all duration-300",
-                        activeSection === item.href
-                          ? "text-brand-500 bg-white/10"
-                          : "text-white/90 hover:text-white hover:bg-white/5"
+                        isOverWhiteBackground 
+                          ? "text-neutral-800 hover:text-brand-500 hover:bg-neutral-100/50" 
+                          : "text-white/90 hover:text-brand-500 hover:bg-white/5"
                       )}
                     >
                       {item.name}

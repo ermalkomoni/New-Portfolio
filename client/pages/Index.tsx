@@ -76,7 +76,10 @@ export default function Index() {
                     Contact Info
                   </button>
                   <button
-                    onClick={() => scrollToSection("contact")}
+                    onClick={() => {
+                      // Open PDF in new tab
+                      window.open('/Ermal_Komoni_Resume.pdf', '_blank');
+                    }}
                     className="inline-flex items-center gap-2 px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-full transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40 hover:scale-105"
                   >
                     <Download className="w-5 h-5" />
@@ -87,7 +90,7 @@ export default function Index() {
                 {/* Social Links */}
                 <div className="flex gap-6 justify-center lg:justify-start">
                   <a
-                    href="https://linkedin.com"
+                    href="https://github.com/ermalkomoni"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 rounded-full bg-secondary hover:bg-secondary/80 text-secondary-foreground transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
@@ -96,7 +99,7 @@ export default function Index() {
                     <span className="sr-only">LinkedIn</span>
                   </a>
                   <a
-                    href="https://github.com"
+                    href="https://github.com/ermalkomoni"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 rounded-full bg-secondary hover:bg-secondary/80 text-secondary-foreground transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"

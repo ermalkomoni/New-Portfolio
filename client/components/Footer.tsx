@@ -113,9 +113,6 @@ export default function Footer() {
             <p className="text-muted-foreground text-sm">
               Copyright © {currentYear} Ermal Komoni. All Rights Reserved.
             </p>
-            <div className="text-muted-foreground text-sm">
-              Built with React, TypeScript & TailwindCSS
-            </div>
           </div>
         </div>
       </div>

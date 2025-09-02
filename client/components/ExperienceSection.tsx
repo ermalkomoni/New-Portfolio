@@ -205,7 +205,9 @@ export default function ExperienceSection() {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <p className="text-base sm:text-lg text-brand-500 font-medium mb-2">Explore My</p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent mb-4 sm:mb-6">
+          <h2 className="h-auto text-3xl sm:text-4xl md:text-5xl font-bold 
+               bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 
+               bg-clip-text text-transparent mb-4 sm:mb-6 pb-2">
             Experience
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
@@ -281,6 +283,7 @@ export default function ExperienceSection() {
         </div>
 
         {/* Combined Tech Stack Slider */}
+        
         <div className="mt-16 sm:mt-20">
           <TechStack 
             title="Technology Stack"
