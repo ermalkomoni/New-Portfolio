@@ -17,7 +17,7 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen pt-8">
+    <div className="min-h-screen w-full pt-8">
       {/* Hero Section */}
       <section
         id="home"
@@ -53,13 +53,13 @@ export default function Index() {
             <div className="text-center lg:text-left order-2 lg:order-2">
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <p className="text-lg text-muted-foreground font-medium text-center">
+                  <p className="text-lg text-muted-foreground font-medium text-center font-bold">
                     Hello, I'm
                   </p>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent">
                     Ermal Komoni
                   </h1>
-                  <p className="text-xl md:text-2xl text-muted-foreground text-center">
+                  <p className="text-xl md:text-2xl text-muted-foreground text-center font-bold">
                     Software Engineer
                   </p>
                 </div>

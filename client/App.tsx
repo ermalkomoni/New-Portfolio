@@ -15,7 +15,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <div>
+      <div className="min-h-screen w-full">
         <Header />
         <Index />
       </div>
