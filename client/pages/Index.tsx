@@ -28,7 +28,7 @@ export default function Index() {
             {/* Profile Image */}
             <div className="flex justify-center lg:justify-end order-1 lg:order-1">
               <div className="relative">
-                <div className="w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-brand-500/20 shadow-2xl shadow-brand-500/20">
+                <div className="w-80 h-80 md:w-86 md:h-86 rounded-full overflow-hidden border-4 border-brand-500/20 shadow-2xl shadow-brand-500/20">
                   <img
                     src="/Cropimageproject.jpeg"
                     alt="Ermal Komoni"
@@ -37,8 +37,8 @@ export default function Index() {
                 </div>
 
                 {/* Online status indicator */}
-                <div className="absolute bottom-10 right-8 sm:bottom-8 sm:right-5 md:bottom-10 md:right-6 lg:bottom-14 lg:right-8">
-                  <span className="relative flex h-6 w-6 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7">
+                <div className="absolute bottom-10 right-10 sm:bottom-8 sm:right-5 md:bottom-10 md:right-6 lg:bottom-12 lg:right-8">
+                  <span className="relative flex h-5 w-5 sm:h-8 sm:w-5 md:h-6 md:w-6 lg:h-5 lg:w-5">
                     {/* Ping animation */}
                     <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-[ping_2s_linear_infinite]"></span>
                     {/* Solid dot */}
@@ -50,27 +50,27 @@ export default function Index() {
 
             {/* Content */}
             <div className="text-center lg:text-left order-2 lg:order-2">
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div className="space-y-2">
-                  <p className="text-lg text-muted-foreground font-medium">
+                  <p className="text-lg font-medium text-center">
                     Hello, I'm
                   </p>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent">
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent text-center">
                     Ermal Komoni
                   </h1>
-                  <p className="text-xl md:text-2xl text-muted-foreground font-medium">
+                  <p className="text-xl md:text-2xl font-medium text-center">
                     Software Engineer
                   </p>
                 </div>
 
-                <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
+                {/* <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
                   I build exceptional digital experiences that combine beautiful
                   design with robust functionality. Passionate about creating
                   solutions that make a difference.
-                </p>
+                </p> */}
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button className="inline-flex items-center gap-2 px-8 py-4 bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
                     <Mail className="w-5 h-5" />
                     Contact Info
@@ -88,7 +88,7 @@ export default function Index() {
                 </div>
 
                 {/* Social Links */}
-                <div className="flex gap-6 justify-center lg:justify-start">
+                <div className="flex gap-6 justify-center">
                   <a
                     href="https://github.com/ermalkomoni"
                     target="_blank"
@@ -115,12 +115,12 @@ export default function Index() {
       </section>
 
       {/* Quick About Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-15 px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Building the Future, One Line at a Time
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+          <p className="text-xl text-muted-foreground leading-relaxed mb-4">
             With expertise in modern web technologies and a passion for clean, 
             efficient code, I help businesses and individuals bring their digital 
             visions to life.

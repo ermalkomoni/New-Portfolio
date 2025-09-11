@@ -39,31 +39,28 @@ const workExperience = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Profile Image */}
-          <div className="flex justify-center lg:justify-start">
-            <div className="relative">
-              <div className="w-96 h-96 lg:w-[500px] lg:h-[600px] rounded-3xl overflow-hidden border border-border shadow-2xl shadow-brand-500/10">
-                <img
-                  // src={portfolioImage}
-                  src="/portofolioimage.jpg"
-                  alt="Ermal Komoni - About"
-                  className="w-full h-full object-center"
-                  style={{ imageRendering: 'auto' }}
-                />
-              </div>
+    <section id="about" className="py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
+          {/* about-col-1 - Image */}
+          <div className="w-full lg:w-[35%] lg:flex-shrink-0">
+            <div className="w-[355px] h-[512px] lg:w-full lg:h-full rounded-2xl overflow-hidden shadow-lg mx-auto lg:mx-0">
+              <img
+                src="/portofolioimage.jpg"
+                alt="About Photo"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
-          {/* Content */}
-          <div className="space-y-8">
+          {/* about-col-2 - Content */}
+          <div className="w-full lg:w-[60%] lg:flex-grow">
+            <div className="space-y-6 lg:space-y-12">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 About Me
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 Experienced Software Engineer with expertise in developing scalable 
                 applications using C# / .NET Core, Java, MSSQL and React JS. Proven 
                 ability to collaborate with cross-functional teams to deliver enterprise-level 
@@ -75,59 +72,34 @@ export default function AboutSection() {
 
             {/* Education Section */}
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-brand-500/10 rounded-lg">
-                  <GraduationCap className="w-6 h-6 text-brand-500" />
+              <div className="flex items-center gap-2 mb-4">
+                <div className="p-1.5 bg-brand-500/10 rounded-md">
+                  <GraduationCap className="w-5 h-5 text-brand-500" />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground">Education</h3>
+                <h3 className="text-xl font-bold text-foreground">Education</h3>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {education.map((edu, index) => (
                   <div 
                     key={index}
-                    className="p-4 rounded-xl bg-card border border-border hover:shadow-lg transition-shadow"
+                    className="p-3 rounded-lg bg-card border border-border"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                      <h4 className={`font-semibold ${edu.color}`}>
-                        {edu.institution}
-                      </h4>
-                      <span className="text-muted-foreground text-sm">
-                        {edu.year}
-                      </span>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2">
+                        <h4 className={`font-semibold text-sm ${edu.color}`}>
+                          {edu.institution}
+                        </h4>
+                        <span className="text-muted-foreground text-xs">
+                          {edu.year}
+                        </span>
+                      </div>
+                      <p className="text-muted-foreground text-sm">{edu.degree}</p>
                     </div>
-                    <p className="text-muted-foreground mt-1">{edu.degree}</p>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* Work Experience Section */}
-            {/* <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-brand-500/10 rounded-lg">
-                  <Briefcase className="w-6 h-6 text-brand-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">Work Experience</h3>
-              </div>
-              <div className="space-y-4">
-                {workExperience.map((work, index) => (
-                  <div 
-                    key={index}
-                    className="p-4 rounded-xl bg-card border border-border hover:shadow-lg transition-shadow"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                      <h4 className={`font-semibold ${work.color}`}>
-                        {work.company}
-                      </h4>
-                      <span className="text-muted-foreground text-sm">
-                        {work.period}
-                      </span>
-                    </div>
-                    <p className="text-muted-foreground mt-1">{work.position}</p>
-                  </div>
-                ))}
-              </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

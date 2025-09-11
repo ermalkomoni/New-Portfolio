@@ -20,11 +20,11 @@ const contactMethods = [
     color: "from-blue-500 to-blue-600"
   },
   {
-    icon: MapPin,
-    title: "Location",
-    value: "Pristina, Kosovo",
-    href: "#",
-    description: "Based in Kosovo",
+    icon: Phone,
+    title: "Phone",
+    value: "+383 49 704 880",
+    href: "tel:+38349704880",
+    description: "Let's have a quick chat",
     color: "from-green-500 to-green-600"
   }
 ];
