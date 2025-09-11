@@ -17,14 +17,14 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen pt-8">
       {/* Hero Section */}
       <section
         id="home"
         className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
       >
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 lg:gap-16 items-center">
             {/* Profile Image - Mobile: Top, Desktop: Left */}
             <div className="flex justify-center lg:justify-end order-1 lg:order-1">
               <div className="relative">
@@ -32,12 +32,13 @@ export default function Index() {
                   <img
                     src="/Cropimageproject.jpeg"
                     alt="Ermal Komoni"
-                    className="w-full h-full object-cover"
+                    // className="w-full h-full object-cover"
                   />
                 </div>
 
                 {/* Online status indicator */}
-                <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8">
+                {/* <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8"> */}
+                <div className="absolute bottom-6 right-10 sm:bottom-8 sm:right-5 md:bottom-10 md:right-6 lg:bottom-12 lg:right-8">
                   <span className="relative flex h-4 w-4 sm:h-5 sm:w-5">
                     {/* Ping animation */}
                     <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-[ping_2s_linear_infinite]"></span>
@@ -52,22 +53,24 @@ export default function Index() {
             <div className="text-center lg:text-left order-2 lg:order-2">
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <p className="text-lg text-muted-foreground font-medium">
+                  <p className="text-lg text-muted-foreground font-medium text-center">
                     Hello, I'm
                   </p>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent">
                     Ermal Komoni
                   </h1>
-                  <p className="text-xl md:text-2xl text-muted-foreground">
+                  <p className="text-xl md:text-2xl text-muted-foreground text-center">
                     Software Engineer
                   </p>
                 </div>
 
                 {/* Action Buttons - Always horizontal */}
-                <div className="flex flex-row gap-4 justify-center lg:justify-start">
+                <div className="flex flex-row gap-4 justify-center">
                   <button 
                     onClick={() => scrollToSection('contact')}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                    // className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-secondary-foreground rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+
                   >
                     <Mail className="w-4 h-4" />
                     Contact Info
@@ -77,7 +80,7 @@ export default function Index() {
                       // Open PDF in new tab
                       window.open('/Ermal_Komoni_Resume.pdf', '_blank');
                     }}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40 hover:scale-105"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40"
                   >
                     <Download className="w-4 h-4" />
                     Preview CV
@@ -85,7 +88,7 @@ export default function Index() {
                 </div>
 
                 {/* Social Links */}
-                <div className="flex gap-4 justify-center lg:justify-start">
+                <div className="flex gap-4 justify-center">
                   <a
                     href="https://linkedin.com/in/ermalkomoni"
                     target="_blank"
