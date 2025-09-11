@@ -8,7 +8,7 @@ const workExperience = [
     period: "2023 - 2024", 
     location: "Kosovo - Onsite",
     description: "Developed and maintained web applications using modern technologies, collaborated with design teams, and implemented responsive user interfaces for client projects.",
-    technologies: ["React", "Node.js", "TypeScript", "MongoDB"],
+    technologies: ["C#", ".NET", "Angular", "JavaScript", "SQL Server", "PostgreSQL"],
     isCurrentJob: false
   },
   {
@@ -17,12 +17,23 @@ const workExperience = [
     period: "2024 - Present",
     location: "Switzerland - Remote",
     description: "Leading solution engineering initiatives, developing enterprise-level applications, and collaborating with cross-functional teams to deliver innovative software solutions.",
-    technologies: ["C#", ".NET", "Azure", "React"],
+    technologies: ["C#", ".NET", "Azure", "JavaScript", "React JS", "SQL Server", "SharePoint"],
     isCurrentJob: true
   }
 ];
 
 const backendTech = [
+  {
+    name: "SignalR",
+    logo: (
+      <img 
+        src="/SignalR.svg" 
+        alt="SignalR Logo" 
+        className="w-full h-full object-contain"
+      />
+    ),
+    description: "SignalR"
+  },
   {
     name: "HTML5",
     logo: (
@@ -117,6 +128,19 @@ const backendTech = [
     description: "Microsoft database"
   },
   {
+    name: "Angular",
+    logo: (
+      <img 
+        src="/angular.svg" 
+        alt="Angular Logo" 
+        className="w-full h-full object-contain"
+        width="2000"
+        height="2000"
+      />
+    ),
+    description: "Angular"
+  },
+  {
     name: "SQL Server",
     logo: (
       <img 
@@ -139,6 +163,32 @@ const backendTech = [
       />
     ),
     description: "PostgreSQL database"
+  },
+  {
+    name: "Kubernets",
+    logo: (
+      <img 
+        src="/kubernets.svg" 
+        alt="Kubernetes Logo" 
+        className="w-full h-full object-contain"
+        width="2000"
+        height="2000"
+      />
+    ),
+    description: "Kubernets"
+  },
+  {
+    name: "RabbitMQ",
+    logo: (
+      <img 
+        src="/RabbitMQ.svg" 
+        alt="RabbitMQ Logo" 
+        className="w-full h-full object-contain"
+        width="2000"
+        height="2000"
+      />
+    ),
+    description: "RabbitMQ"
   }
 ];
 

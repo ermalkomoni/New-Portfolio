@@ -102,8 +102,8 @@ export default function TechStack({ title, technologies, direction = "left" }: T
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartX, setDragStartX] = useState(0);   // 🔥 Track drag start position
 
-  // Always show 7 items, so we need to create a window of 7 items
-  const ITEMS_TO_SHOW = 7;
+  // Always show 9 items, so we need to create a window of 7 items
+  const ITEMS_TO_SHOW = 9;
   const baseLength = technologies.length;
 
   // Initialize centerIndex to the middle of the array
@@ -235,7 +235,7 @@ export default function TechStack({ title, technologies, direction = "left" }: T
 
   // Calculate which 7 items to show based on centerIndex
   const getVisibleItems = () => {
-    const startIndex = centerIndex - 3; // Show 3 items to the left
+    const startIndex = centerIndex - 4; // Show 4 items to the left
     const items = [];
     
     for (let i = 0; i < ITEMS_TO_SHOW; i++) {
@@ -246,7 +246,7 @@ export default function TechStack({ title, technologies, direction = "left" }: T
         originalIndex,
         actualIndex,
         isCenter: originalIndex === centerIndex,
-        distanceFromCenter: i - 3 // Distance from center (0 = center, -3 to +3)
+        distanceFromCenter: i - 4 // Distance from center (0 = center, -4 to +4)
       });
     }
     
