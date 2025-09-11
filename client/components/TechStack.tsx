@@ -82,9 +82,9 @@ const TechIcon = ({
         )}
       </div>
 
-      {/* Tech name tooltip */}
+      {/* Tech name tooltip - hidden on mobile */}
       <div className={cn(
-        "absolute top-full left-1/2 transform -translate-x-1/2 mt-4 px-3 py-1 bg-background/90 backdrop-blur-sm border border-border rounded-lg text-sm font-medium text-foreground opacity-0 transition-all duration-500 ease-out pointer-events-none whitespace-nowrap z-20",
+        "hidden md:block absolute top-full left-1/2 transform -translate-x-1/2 mt-4 px-3 py-1 bg-background/90 backdrop-blur-sm border border-border rounded-lg text-sm font-medium text-foreground opacity-0 transition-all duration-500 ease-out pointer-events-none whitespace-nowrap z-20",
         isHovered && "opacity-100 translate-y-0",
         !isHovered && "translate-y-2"
       )}>
@@ -272,7 +272,7 @@ export default function TechStack({ title, technologies, direction = "left" }: T
         {/* Tech Icons Carousel - Always Show 7 Items */}
         <div
           ref={containerRef}
-          className="w-full overflow-hidden md:overflow-visible"
+          className="w-full overflow-visible"
           onMouseEnter={
             window.innerWidth >= 768
               ? () => setIsHovered(true)
@@ -284,7 +284,7 @@ export default function TechStack({ title, technologies, direction = "left" }: T
               : null
           }
         >
-          <div className="relative flex justify-center items-center py-12">
+          <div className="relative flex justify-center items-center py-12 px-8">
             {/* Fixed 7-item display with smooth transitions */}
             <div className={cn(
               "flex gap-8 md:gap-12 lg:gap-14 transition-all duration-500 ease-out",
