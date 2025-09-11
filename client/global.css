@@ -146,13 +146,13 @@
     width: 100%;
   }
 
-  /* Safe area support for devices with dynamic islands */
+  /* Remove safe area padding to allow content to extend behind dynamic island */
   @supports (padding: max(0px)) {
     body {
-      padding-left: max(0px, env(safe-area-inset-left));
-      padding-right: max(0px, env(safe-area-inset-right));
-      padding-top: max(0px, env(safe-area-inset-top));
-      padding-bottom: max(0px, env(safe-area-inset-bottom));
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 0;
+      padding-bottom: 0;
     }
   }
 
@@ -168,7 +168,7 @@
     background-color: hsl(var(--background));
   }
 
-  /* Ensure the top area is covered by the gradient background */
+  /* Ensure the top area is covered by the gradient background - extends behind dynamic island */
   body::before {
     content: '';
     position: fixed;
@@ -178,8 +178,14 @@
     height: 100vh;
     height: 100dvh;
     background: radial-gradient(ellipse at top, hsl(var(--brand-950)) 0%, hsl(var(--background)) 50%);
-    z-index: -1;
+    z-index: -2;
     pointer-events: none;
+  }
+
+  /* Ensure content can extend behind dynamic island */
+  .hero-section {
+    position: relative;
+    z-index: 1;
   }
 
   /* Modern scrollbar styling */

@@ -17,11 +17,11 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen w-full pt-8">
+    <div className="min-h-screen w-full">
       {/* Hero Section */}
       <section
         id="home"
-        className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
+        className="hero-section relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20"
       >
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 lg:gap-16 items-center">
