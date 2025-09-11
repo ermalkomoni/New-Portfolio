@@ -156,6 +156,32 @@
     }
   }
 
+  /* Remove any default browser margins/padding that might cause white space */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Ensure no white background shows through */
+  html, body {
+    background-color: hsl(var(--background));
+  }
+
+  /* Ensure the top area is covered by the gradient background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    height: 100dvh;
+    background: radial-gradient(ellipse at top, hsl(var(--brand-950)) 0%, hsl(var(--background)) 50%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
   /* Modern scrollbar styling */
   ::-webkit-scrollbar {
     width: 8px;
