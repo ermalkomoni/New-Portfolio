@@ -2,6 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Image optimization and performance styles */
+@layer base {
+  /* Optimize image rendering */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: optimize-contrast;
+  }
+  
+  /* Smooth transitions for image loading */
+  img[data-loading="true"] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  img[data-loaded="true"] {
+    opacity: 1;
+  }
+  
+  /* Blur placeholder styles */
+  .blur-placeholder {
+    filter: blur(8px);
+    transform: scale(1.1);
+  }
+  
+  /* Skeleton loading animation */
+  .skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+  }
+  
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  /* Image container optimizations */
+  .image-container {
+    contain: layout style paint;
+    will-change: transform;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    img {
+      transition: none !important;
+    }
+    
+    .skeleton {
+      animation: none;
+    }
+  }
+}
+
 @layer base {
   /**
    * Tailwind CSS theme

@@ -1,5 +1,6 @@
 import { Calendar, MapPin, Building, Briefcase } from "lucide-react";
 import TechStack from "./TechStack";
+// import OptimizedImage from "./ui/optimized-image";
 
 const workExperience = [
   {
@@ -26,10 +27,14 @@ const backendTech = [
   {
     name: "SignalR",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/SignalR.svg" 
         alt="SignalR Logo" 
-        className="w-full h-full object-contain"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "SignalR"
@@ -37,10 +42,14 @@ const backendTech = [
   {
     name: "HTML5",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/html.png" 
         alt="HTML Logo" 
-        className="w-full h-full object-contain"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "Markup language"
@@ -48,10 +57,14 @@ const backendTech = [
   {
     name: "CSS3",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/css.png" 
         alt="CSS Logo" 
-        className="w-full h-full object-contain"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "Styling & animations"
@@ -59,10 +72,14 @@ const backendTech = [
   {
     name: "PHP",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/php.png" 
         alt="PHP Logo" 
-        className="w-full h-full object-contain"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "Server-side scripting"
@@ -79,10 +96,14 @@ const backendTech = [
   {
     name: "C#",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/csharp.png" 
         alt="C# Logo" 
-        className="w-full h-full object-contain"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "Object-oriented programming"
@@ -119,10 +140,14 @@ const backendTech = [
   {
     name: "React JS",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/react.png" 
         alt="React JS Logo" 
-        className="w-full h-full object-contain"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "Microsoft database"
@@ -130,12 +155,14 @@ const backendTech = [
   {
     name: "Angular",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/angular.svg" 
         alt="Angular Logo" 
-        className="w-full h-full object-contain"
-        width="2000"
-        height="2000"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "Angular"
@@ -143,10 +170,14 @@ const backendTech = [
   {
     name: "SQL Server",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/sqlserver.png" 
         alt="SQL Server Logo" 
-        className="w-full h-full object-contain"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "Microsoft database"
@@ -154,12 +185,14 @@ const backendTech = [
   {
     name: "PostgreSQL",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/postgresql.svg" 
         alt="PostgreSQL Logo" 
-        className="w-full h-full object-contain"
-        width="2000"
-        height="2000"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "PostgreSQL database"
@@ -167,12 +200,14 @@ const backendTech = [
   {
     name: "Kubernets",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/kubernets.svg" 
         alt="Kubernetes Logo" 
-        className="w-full h-full object-contain"
-        width="2000"
-        height="2000"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "Kubernets"
@@ -180,12 +215,14 @@ const backendTech = [
   {
     name: "RabbitMQ",
     logo: (
-      <img 
+      <img
+      // <OptimizedImage 
         src="/RabbitMQ.svg" 
         alt="RabbitMQ Logo" 
-        className="w-full h-full object-contain"
-        width="2000"
-        height="2000"
+        className="w-full h-full"
+        // objectFit="contain"
+        // priority={false}
+        // showLoadingSpinner={false}
       />
     ),
     description: "RabbitMQ"

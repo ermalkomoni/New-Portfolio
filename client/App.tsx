@@ -7,8 +7,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Header from "./components/Header";
 import Index from "./pages/Index";
+import { initializeImageOptimization } from "./lib/image-config";
 
 const queryClient = new QueryClient();
+
+// Initialize image optimization
+initializeImageOptimization();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
