@@ -44,13 +44,13 @@ const TechIcon = ({
         transform: `scale(${scale})`,
         opacity: opacity,
         filter: `brightness(${brightness})`,
-        transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)"
+        transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
       }}
     >
       {/* Glass effect container */}
       <div
         className={cn(
-          "relative w-20 h-20 md:w-24 md:h-24 rounded-full transition-all duration-500 ease-out",
+          "relative w-20 h-20 md:w-24 md:h-24 rounded-full transition-all duration-200 ease-out",
           "hover:scale-110 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-500/20",
           isHovered && "scale-110 -translate-y-2 shadow-2xl shadow-brand-500/20"
         )}
@@ -60,7 +60,7 @@ const TechIcon = ({
           {/* Logo container */}
           <div className="w-full h-full flex items-center justify-center rounded-full relative z-10">
             <div className={cn(
-              "flex items-center justify-center transition-all duration-500 ease-out",
+              "flex items-center justify-center transition-all duration-200 ease-out",
               isCenter ? "w-12 h-12 md:w-14 md:h-14" : "w-10 h-10 md:w-12 md:h-12"
             )}>
               {tech.logo}
@@ -71,14 +71,14 @@ const TechIcon = ({
         {/* Hover glow effect */}
         <div
           className={cn(
-            "absolute inset-0 rounded-full transition-all duration-500 ease-out pointer-events-none",
-            isHovered ? "shadow-2xl shadow-brand-500/30 bg-brand-500/10" : ""
+            "absolute inset-0 rounded-full transition-all duration-200 ease-out pointer-events-none",
+            isHovered ? "shadow-2xl shadow-brand-500/30 bg-brand-300/10" : ""
           )}
         />
 
         {/* Subtle pulse animation for center item */}
         {isCenter && (
-          <div className="absolute inset-0 rounded-full border-2 border-brand-500/30 animate-pulse transition-all duration-500 ease-out" />
+          <div className="absolute inset-0 rounded-full border-2 border-brand-500/30 animate-pulse transition-all duration-600 ease-out" />
         )}
       </div>
 
