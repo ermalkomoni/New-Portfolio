@@ -121,7 +121,7 @@ export default function ContactSection() {
                 <div>
                   <h4 className="font-semibold text-foreground">Currently Available</h4>
                   <p className="text-muted-foreground text-sm">
-                    Open for freelance opportunities and full-time positions
+                    Open for freelance opportunities and part-time positions
                   </p>
                 </div>
               </div>

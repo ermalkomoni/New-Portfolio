@@ -1,4 +1,5 @@
-import { Github, Linkedin, Mail, Download, ArrowRight } from "lucide-react";
+import { Github, Linkedin, Mail, Download, ArrowRight, FileScan } from "lucide-react";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 import AboutSection from "../components/AboutSection";
 import ExperienceSection from "../components/ExperienceSection";
 import ProjectsSection from "../components/ProjectsSection";
@@ -75,18 +76,17 @@ export default function Index() {
                     <Mail className="w-4 h-4" />
                     Contact Info
                   </button>
-                  <button
+                  <ShimmerButton
                     onClick={() => {
                       // Open PDF in new tab
                       window.open('/Ermal_Komoni_Resume.pdf', '_blank');
                     }}
                     className="inline-flex items-center gap-2 px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40"
                   >
-                    <Download className="w-4 h-4" />
+                    <FileScan className="w-4 h-4" />
                     Preview CV
-                  </button>
-                </div>
-
+                  </ShimmerButton>
+              </div>
                 {/* Social Links */}
                 <div className="flex gap-4 justify-center">
                   <a
