@@ -18,7 +18,7 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen w-full scroll-smooth">
       {/* Hero Section */}
       <section
         id="home"
@@ -29,7 +29,7 @@ export default function Index() {
             {/* Profile Image - Mobile: Top, Desktop: Left */}
             <div className="flex justify-center lg:justify-end order-1 lg:order-1">
               <div className="relative">
-                <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-brand-500/20 shadow-2xl shadow-brand-500/20">
+                <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-brand-500/20 shadow-4xl shadow-brand-500/20 hover:border-[rgb(35,130,246)] transition-all duration-300">
                   <img
                     src="/Cropimageproject.jpeg"
                     alt="Ermal Komoni"
