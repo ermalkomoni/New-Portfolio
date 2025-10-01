@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail, Download, ArrowRight, FileScan } from "lucide-react";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { Particles } from "@/components/ui/particles";
 import AboutSection from "../components/AboutSection";
 import ExperienceSection from "../components/ExperienceSection";
 import ProjectsSection from "../components/ProjectsSection";
@@ -27,9 +28,21 @@ export default function Index() {
       {/* Hero Section */}
       <section
         id="home"
-        className="hero-section relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20"
+        className="hero-section relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto">
+        {/* Particles Background */}
+        <Particles
+          className="absolute inset-0 z-0"
+          quantity={20}
+          ease={80}
+          color="#3b82f6"
+          size={0.4}
+          staticity={50}
+          refresh={false}
+        />
+        {/* Subtle gradient overlay for better text readability */}
+        <div className="absolute inset-0 z-5 bg-gradient-to-br from-transparent via-transparent to-black/5 pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 lg:gap-16 items-center">
             {/* Profile Image - Mobile: Top, Desktop: Left */}
             <motion.div 
@@ -62,7 +75,7 @@ export default function Index() {
                 <div className="space-y-3">
                   {/* Greeting text */}
                   <motion.p 
-                    className="text-lg text-muted-foreground font-medium text-center font-bold"
+                    className="text-lg text-muted-foreground font-bold text-center"
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.2 }} // Reduced from 0.6s duration & 1.1s delay
