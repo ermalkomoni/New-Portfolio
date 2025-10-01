@@ -36,7 +36,7 @@ export default function Index() {
               className="flex justify-center lg:justify-end order-1 lg:order-1"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }} // Reduced from 0.8s duration & 1.5s delay
+              transition={{ duration: 0.5, delay: 0.6 }}
             >
               <div className="relative ">
                 <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-brand-500/20 shadow-4xl shadow-brand-500/20 hover:border-[rgb(35,130,246)] transition-all duration-300">
