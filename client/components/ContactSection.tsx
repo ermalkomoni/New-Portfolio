@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Mail, Linkedin, MapPin, Phone, Send, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const contactMethods = [
   {
@@ -36,6 +37,7 @@ export default function ContactSection() {
     subject: "",
     message: ""
   });
+  const nameInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -51,169 +53,285 @@ export default function ContactSection() {
     // You can add your form submission logic here
   };
 
+  // Auto-focus the name input when the form comes into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && nameInputRef.current) {
+            // Small delay to ensure smooth animation completion
+            setTimeout(() => {
+              nameInputRef.current?.focus();
+            }, 1000);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const formElement = document.getElementById('contact-form');
+    if (formElement) {
+      observer.observe(formElement);
+    }
+
+    return () => {
+      if (formElement) {
+        observer.unobserve(formElement);
+      }
+    };
+  }, []);
+
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-lg text-brand-500 font-medium mb-2">Get in Touch</p>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent mb-6">
-            Contact Me
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Ready to start your next project? Let's discuss how we can work together to bring your ideas to life.
+  <div className="max-w-7xl mx-auto">
+    {/* Header */}
+    <div className="text-center mb-16">
+      {/* Subtitle with fadeInUp - delay 0.2s */}
+      <motion.p 
+        className="text-lg text-brand-500 font-medium mb-2"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true }}
+      >
+        Get in Touch
+      </motion.p>
+
+      {/* Main title with fadeInUp - delay 0.3s */}
+      <motion.h2 
+        className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent mb-6"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        viewport={{ once: true }}
+      >
+        Contact Me
+      </motion.h2>
+
+      {/* Description with fadeInUp - delay 0.4s */}
+      <motion.p 
+        className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        viewport={{ once: true }}
+      >
+        Ready to start your next project? Let's discuss how we can work together to bring your ideas to life.
+      </motion.p>
+    </div>
+
+    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+      {/* Contact Information - fadeInRight */}
+      <motion.div 
+        className="space-y-8"
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        viewport={{ once: true }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <h3 className="text-2xl font-bold text-foreground mb-6">
+            Let's Start a Conversation
+          </h3>
+          <p className="text-muted-foreground leading-relaxed mb-8">
+            I'm always interested in new opportunities and exciting projects. 
+            Whether you have a question or just want to say hello, I'll get back to you as soon as possible.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6">
-                Let's Start a Conversation
-              </h3>
-              <p className="text-muted-foreground leading-relaxed mb-8">
-                I'm always interested in new opportunities and exciting projects. 
-                Whether you have a question or just want to say hello, I'll get back to you as soon as possible.
-              </p>
-            </div>
-
-            {/* Contact Methods */}
-            <div className="space-y-4">
-              {contactMethods.map((method) => (
-                <a
-                  key={method.title}
-                  href={method.href}
-                  target={method.href.startsWith('http') ? '_blank' : '_self'}
-                  rel={method.href.startsWith('http') ? 'noopener noreferrer' : ''}
-                  className="group block"
-                >
-                  <div className="flex items-center gap-4 p-6 rounded-xl bg-card border border-border hover:shadow-lg hover:shadow-brand-500/10 transition-all duration-300 hover:scale-[1.02]">
-                    {/* Icon */}
-                    <div className={cn(
-                      "w-12 h-12 rounded-full bg-gradient-to-br flex items-center justify-center text-white shadow-lg",
-                      method.color
-                    )}>
-                      <method.icon className="w-6 h-6" />
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-foreground group-hover:text-brand-500 transition-colors">
-                        {method.title}
-                      </h4>
-                      <p className="text-muted-foreground text-sm mb-1">
-                        {method.description}
-                      </p>
-                      <p className="font-medium text-foreground">
-                        {method.value}
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            {/* Availability Status */}
-            <div className="p-6 rounded-xl bg-gradient-to-br from-brand-500/10 to-brand-600/10 border border-brand-500/20">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <div>
-                  <h4 className="font-semibold text-foreground">Currently Available</h4>
-                  <p className="text-muted-foreground text-sm">
-                    Open for freelance opportunities and part-time positions
+        {/* Contact Methods with staggered animation */}
+        <div className="space-y-4">
+          {contactMethods.map((method, index) => (
+            <motion.a
+              key={method.title}
+              href={method.href}
+              target={method.href.startsWith('http') ? '_blank' : '_self'}
+              rel={method.href.startsWith('http') ? 'noopener noreferrer' : ''}
+              className="group block"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: 0.6 // All animate at the same time
+              }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-center gap-4 p-6 rounded-xl bg-card border border-border hover:shadow-lg hover:shadow-brand-500/10 transition-all duration-300 hover:scale-[1.02]">
+                {/* Icon */}
+                <div className={cn(
+                  "w-12 h-12 rounded-full bg-gradient-to-br flex items-center justify-center text-white shadow-lg",
+                  method.color
+                )}>
+                  <method.icon className="w-6 h-6" />
+                </div>
+                
+                {/* Content */}
+                <div className="flex-1">
+                  <h4 className="font-semibold text-foreground group-hover:text-brand-500 transition-colors">
+                    {method.title}
+                  </h4>
+                  <p className="text-muted-foreground text-sm mb-1">
+                    {method.description}
+                  </p>
+                  <p className="font-medium text-foreground">
+                    {method.value}
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="bg-card border border-border rounded-xl p-8 shadow-lg">
-            <div className="flex items-center gap-3 mb-6">
-              <MessageCircle className="w-6 h-6 text-brand-500" />
-              <h3 className="text-xl font-bold text-foreground">
-                Send a Message
-              </h3>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                    Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
-                  Subject *
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
-                  placeholder="What's this about?"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all resize-none"
-                  placeholder="Tell me about your project..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40"
-              >
-                <Send className="w-5 h-5" />
-                Send Message
-              </button>
-            </form>
-          </div>
+            </motion.a>
+          ))}
         </div>
-      </div>
-    </section>
+
+        {/* Availability Status */}
+        <motion.div 
+          className="p-6 rounded-xl bg-gradient-to-br from-brand-500/10 to-brand-600/10 border border-brand-500/20"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <div>
+              <h4 className="font-semibold text-foreground">Currently Available</h4>
+              <p className="text-muted-foreground text-sm">
+                Open for freelance opportunities and part-time positions
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Contact Form - fadeInLeft */}
+      <motion.div 
+        id="contact-form"
+        className="bg-card border border-border rounded-xl p-8 shadow-lg"
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        viewport={{ once: true }}
+      >
+        <motion.div 
+          className="flex items-center gap-3 mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
+          <MessageCircle className="w-6 h-6 text-brand-500" />
+          <h3 className="text-xl font-bold text-foreground">
+            Send a Message
+          </h3>
+        </motion.div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <motion.div 
+            className="grid sm:grid-cols-2 gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                Name *
+              </label>
+              <input
+                ref={nameInputRef}
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+                className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                placeholder="Your name"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                Email *
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+                className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                placeholder="your.email@example.com"
+              />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
+              Subject *
+            </label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              value={formData.subject}
+              onChange={handleInputChange}
+              required
+              className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+              placeholder="What's this about?"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+              Message *
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleInputChange}
+              required
+              rows={5}
+              className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all resize-none"
+              placeholder="Tell me about your project..."
+            />
+          </motion.div>
+
+          <motion.button
+            type="submit"
+            className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            viewport={{ once: true }}
+            whileHover={{ 
+              scale: 1.02,
+              boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.4)"
+            }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Send className="w-5 h-5" />
+            Send Message
+          </motion.button>
+        </form>
+      </motion.div>
+    </div>
+  </div>
+</section>
   );
 }

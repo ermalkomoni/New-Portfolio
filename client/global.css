@@ -245,6 +245,9 @@
   .hero-section {
     position: relative;
     z-index: 1;
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height */
+    min-height: 100svh;
   }
 
   /* Modern scrollbar styling */

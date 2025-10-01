@@ -100,7 +100,7 @@ export default function TechStack({ title, technologies, direction = "left" }: T
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStartX, setDragStartX] = useState(0);   // 🔥 Track drag start position
+  const [dragStartX, setDragStartX] = useState(0);
 
   // Always show 9 items, so we need to create a window of 7 items
   const ITEMS_TO_SHOW = 9;

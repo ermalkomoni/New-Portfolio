@@ -1,5 +1,6 @@
 import { Calendar, MapPin, Building, Briefcase } from "lucide-react";
 import TechStack from "./TechStack";
+import { motion } from "framer-motion";
 // import OptimizedImage from "./ui/optimized-image";
 
 const workExperience = [
@@ -295,92 +296,174 @@ export default function ExperienceSection() {
       <div className="max-w-8xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <p className="text-base sm:text-lg text-brand-500 font-medium mb-2">Explore My</p>
-          <h2 className="h-auto text-3xl sm:text-4xl md:text-5xl font-bold 
-               bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 
-               bg-clip-text text-transparent mb-4 sm:mb-6 pb-2">
+          {/* Subtitle with fadeInUp - delay 0.2s */}
+          <motion.p 
+            className="text-base sm:text-lg text-brand-500 font-medium mb-2"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            Explore My
+          </motion.p>
+
+          {/* Main title with fadeInUp - delay 0.3s */}
+          <motion.h2 
+            className="h-auto text-3xl sm:text-4xl md:text-5xl font-bold 
+                bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 
+                bg-clip-text text-transparent mb-4 sm:mb-6 pb-2"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
             Experience
-          </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
+          </motion.h2>
+
+          {/* Description with fadeInUp - delay 0.4s */}
+          <motion.p 
+            className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
             A journey through my professional experience and the technologies I've mastered along the way.
-          </p>
+          </motion.p>
         </div>
 
         {/* Work Experience Timeline */}
         <div className="mb-16 sm:mb-20">
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground text-center mb-8 sm:mb-12">
+          {/* Section title with fadeInUp - delay 0.5s */}
+          <motion.h3 
+            className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground text-center mb-8 sm:mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
             Professional Journey
-          </h3>
+          </motion.h3>
+
           <div className="relative max-w-4xl mx-auto">
-            {/* Timeline line - visible on all devices, smaller on mobile */}
-            <div className="absolute left-4 sm:left-8 top-8 sm:top-10 w-0.5 h-[calc(2*160px)] sm:h-[calc(2*150px)] bg-gradient-to-b from-brand-500 to-brand-0"></div>
+            {/* Timeline line - animated with scaleY */}
+            <motion.div 
+              className="absolute left-4 sm:left-8 top-8 sm:top-10 w-0.5 h-[calc(2*160px)] sm:h-[calc(2*150px)] bg-gradient-to-b from-brand-500 to-brand-0"
+              initial={{ scaleY: 0, originY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              transition={{ duration: 1.2, delay: 0.6 }}
+              viewport={{ once: true }}
+            ></motion.div>
             
             <div className="space-y-8 sm:space-y-12">
               {workExperience.map((job, index) => (
-                <div key={index} className="relative flex items-start gap-4 sm:gap-8">
-                  {/* Timeline dot - smaller on mobile */}
-                  <div className={`relative z-10 w-8 h-8 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-lg ${
-                    job.isCurrentJob 
-                      ? 'bg-brand-500' 
-                      : 'bg-secondary border-2 border-brand-500'
-                  }`}>
+                <motion.div 
+                  key={index} className="relative flex items-start gap-4 sm:gap-8"
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: 0.7 + (index * 0.1)
+                  }}
+                  viewport={{ once: true }}
+                >
+                  {/* Timeline dot with pulsing animation for current job */}
+                  <motion.div 
+                    className={`relative z-10 w-8 h-8 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-lg ${
+                      job.isCurrentJob 
+                        ? 'bg-brand-500' 
+                        : 'bg-secondary border-2 border-brand-500'
+                    }`}
+                    animate={job.isCurrentJob ? {
+                      boxShadow: [
+                        "0 0 0 0 rgba(59, 130, 246, 0.7)",
+                        "0 0 0 10px rgba(59, 130, 246, 0)",
+                        "0 0 0 0 rgba(59, 130, 246, 0)"
+                      ]
+                    } : {}}
+                    transition={job.isCurrentJob ? {
+                      duration: 1,
+                      repeat: Infinity,
+                      repeatType: "loop"
+                    } : {}}
+                  >
                     <Briefcase className={`w-4 h-4 sm:w-8 sm:h-8 ${
                       job.isCurrentJob ? 'text-white' : 'text-brand-500'
                     }`} />
-                  </div>
+                  </motion.div>
 
-                  {/* Job Details Card */}
-                  <div className="flex-1 bg-card border border-border rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 mb-4">
-                      <div>
-                        <h4 className="text-lg sm:text-xl font-bold text-foreground mb-1">{job.position}</h4>
-                        <div className="flex items-center gap-2 text-brand-500 font-semibold mb-2">
-                          <Building className="w-4 h-4" />
-                          {job.company}
+                  {/* Job Details Card with enhanced spotlight effect for current job */}
+                  <motion.div 
+                    className={`flex-1 border border-border rounded-xl p-4 sm:p-6 shadow-lg transition-all duration-300 overflow-hidden relative ${
+                      job.isCurrentJob 
+                        ? 'bg-gradient-to-br from-brand-500/10 via-brand-400/5 to-brand-600/10 border-brand-500/50' 
+                        : 'bg-card border-border'
+                    } hover:scale-[1.02]`}
+                    whileHover={job.isCurrentJob ? { 
+                      boxShadow: "0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(59, 130, 246, 0.04)" 
+                    } : {
+                      boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+                    }}
+                  >
+
+                    {/* Content with relative positioning */}
+                    <div className="relative z-10">
+                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 mb-4">
+                        <div>
+                          <h4 className="text-lg sm:text-xl font-bold text-foreground mb-1">{job.position}</h4>
+                          <div className="flex items-center gap-2 text-brand-500 font-semibold mb-2">
+                            <Building className="w-4 h-4" />
+                            {job.company}
+                          </div>
+                        </div>
+                        <div className="flex flex-col sm:items-end gap-2 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            {job.period}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-4 h-4" />
+                            {job.location}
+                          </div>
                         </div>
                       </div>
-                      <div className="flex flex-col sm:items-end gap-2 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          {job.period}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          {job.location}
-                        </div>
+                      
+                      <p className="text-muted-foreground mb-4 leading-relaxed text-sm sm:text-base">
+                        {job.description}
+                      </p>
+                      
+                      {/* Technologies used */}
+                      <div className="flex flex-wrap gap-2">
+                        {job.technologies.map((tech) => (
+                          <span 
+                            key={tech}
+                            className="px-2 sm:px-3 py-1 bg-brand-500/10 text-brand-500 rounded-full text-xs sm:text-sm font-medium"
+                          >
+                            {tech}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                    
-                    <p className="text-muted-foreground mb-4 leading-relaxed text-sm sm:text-base">
-                      {job.description}
-                    </p>
-                    
-                    {/* Technologies used */}
-                    <div className="flex flex-wrap gap-2">
-                      {job.technologies.map((tech) => (
-                        <span 
-                          key={tech}
-                          className="px-2 sm:px-3 py-1 bg-brand-500/10 text-brand-500 rounded-full text-xs sm:text-sm font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Combined Tech Stack Slider */}
-        
-        <div className="mt-16 sm:mt-20">
+        {/* Tech Stack Section */}
+        <motion.div 
+          className="mt-16 sm:mt-20"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
           <TechStack 
             title="Technology Stack"
             technologies={[...backendTech]}
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );
