@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { SmoothScrollLink } from "./SmoothScrollLink";
+import { useSmoothScrollTo } from "./SmoothScrollLink";
 
 const navigation = [
   { name: "About", href: "#about" },
@@ -15,6 +17,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOverWhiteBackground, setIsOverWhiteBackground] = useState(false);
+  const scrollTo = useSmoothScrollTo();
 
   // Handle scroll-based visibility and glass effect
   useEffect(() => {
@@ -85,14 +88,8 @@ export default function Header() {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId.replace('#', ''));
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-      setIsMobileMenuOpen(false); // Close mobile menu after navigation
-    }
+    scrollTo(sectionId, 80); // 80px offset for header height
+    setIsMobileMenuOpen(false); // Close mobile menu after navigation
   };
 
   return (
