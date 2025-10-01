@@ -250,6 +250,31 @@
     min-height: 100svh;
   }
 
+  @supports (-webkit-touch-callout: none) {
+    html {
+      height: -webkit-fill-available;
+    }
+    
+    body {
+      min-height: -webkit-fill-available;
+    }
+    
+    #root {
+      min-height: -webkit-fill-available;
+    }
+    
+    .hero-section {
+      min-height: -webkit-fill-available;
+    }
+  }
+
+  /* Ensure proper safe area handling for iOS */
+  @supports (padding: env(safe-area-inset-top)) {
+    body {
+      padding: 0 !important;
+    }
+  }
+
   /* Modern scrollbar styling */
   ::-webkit-scrollbar {
     width: 8px;
