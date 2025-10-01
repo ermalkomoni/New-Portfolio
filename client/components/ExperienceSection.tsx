@@ -1,7 +1,6 @@
 import { Calendar, MapPin, Building, Briefcase } from "lucide-react";
 import TechStack from "./TechStack";
 import { motion } from "framer-motion";
-// import OptimizedImage from "./ui/optimized-image";
 
 const workExperience = [
   {
@@ -29,13 +28,9 @@ const backendTech = [
     name: "SignalR",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/SignalR.svg" 
+        src="/SignalR.webp" 
         alt="SignalR Logo" 
         className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "SignalR"
@@ -44,13 +39,9 @@ const backendTech = [
     name: "HTML5",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/html.png" 
+        src="/html.webp" 
         alt="HTML Logo" 
         className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "Markup language"
@@ -59,13 +50,9 @@ const backendTech = [
     name: "CSS3",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/css.png" 
+        src="/css.webp" 
         alt="CSS Logo" 
         className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "Styling & animations"
@@ -74,13 +61,9 @@ const backendTech = [
     name: "PHP",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/php.png" 
+        src="/php.webp" 
         alt="PHP Logo" 
         className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "Server-side scripting"
@@ -98,13 +81,9 @@ const backendTech = [
     name: "C#",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/csharp.png" 
+        src="/csharp.webp" 
         alt="C# Logo" 
         className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "Object-oriented programming"
@@ -142,13 +121,9 @@ const backendTech = [
     name: "React JS",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/react.png" 
+        src="/react.webp" 
         alt="React JS Logo" 
         className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "Microsoft database"
@@ -157,13 +132,8 @@ const backendTech = [
     name: "Angular",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/angular.svg" 
+        src="/angular.webp" 
         alt="Angular Logo" 
-        className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "Angular"
@@ -172,13 +142,9 @@ const backendTech = [
     name: "SQL Server",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/sqlserver.png" 
+        src="/sqlserver.webp" 
         alt="SQL Server Logo" 
         className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "Microsoft database"
@@ -187,13 +153,9 @@ const backendTech = [
     name: "PostgreSQL",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/postgresql.svg" 
+        src="/postgresql.webp" 
         alt="PostgreSQL Logo" 
         className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "PostgreSQL database"
@@ -202,13 +164,9 @@ const backendTech = [
     name: "Kubernets",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/kubernets.svg" 
+        src="/kubernets.webp" 
         alt="Kubernetes Logo" 
         className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "Kubernets"
@@ -217,13 +175,9 @@ const backendTech = [
     name: "RabbitMQ",
     logo: (
       <img
-      // <OptimizedImage 
-        src="/RabbitMQ.svg" 
+        src="/RabbitMQ.webp" 
         alt="RabbitMQ Logo" 
         className="w-full h-full"
-        // objectFit="contain"
-        // priority={false}
-        // showLoadingSpinner={false}
       />
     ),
     description: "RabbitMQ"

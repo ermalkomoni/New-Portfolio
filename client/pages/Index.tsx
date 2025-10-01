@@ -41,7 +41,7 @@ export default function Index() {
               <div className="relative ">
                 <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-brand-500/20 shadow-4xl shadow-brand-500/20 hover:border-[rgb(35,130,246)] transition-all duration-300">
                   <img
-                    src="/Cropimageproject.jpeg"
+                    src="/Cropimageproject.webp"
                     alt="Ermal Komoni"
                   />
                 </div>

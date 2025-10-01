@@ -5,7 +5,7 @@ const projects = [
   {
     title: "Troja Restaurant",
     description: "A cross-platform web application built with .NET MVC that enables users to purchase food, make online reservations, and process payments securely through Stripe.",
-    image: "/image.png",
+    image: "/image.webp",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "MVC", color: "#0066CC" },
@@ -19,7 +19,7 @@ const projects = [
   {
     title: "TrustGuard",
     description: "A cross-platform web app with .NET and React, enabling easy purchase of diverse insurance policies with secure Stripe payments and comprehensive admin management.",
-    image: "/trustguard.png",
+    image: "/trustguard.webp",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "React JS", color: "#61DAFB" },
@@ -32,7 +32,7 @@ const projects = [
   {
     title: "SnapSend",
     description: "A cross-platform web app built with .NET and React, enabling users to securely share self-destructing passwords or files through an intuitive interface with customizable expiration times, featuring a futuristic glowing design and strong encryption for maximum privacy.",
-    image: "/snapsend.png",
+    image: "/snapsend.webp",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "React JS", color: "#0066CC" },
@@ -43,7 +43,7 @@ const projects = [
   {
     title: "Sales Management System",
     description: "A .NET and React JS app for efficient sales management, including product, sales, and invoice management with real-time information.",
-    image: "/salessystem.png",
+    image: "/salessystem.webp",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "React JS", color: "#61DAFB" }
@@ -53,7 +53,7 @@ const projects = [
   {
     title: "Modern Retail Marketplace",
     description: "An interactive retail website, inspired by Nike. It offers a modern and captivating user interface, easy navigation, and an extensive selection of athletic products.",
-    image: "/ecommerce-project.png",
+    image: "/ecommerce-project.webp",
     techStack: [
       { name: "HTML", color: "#512BD4" },
       { name: "CSS", color: "#0066CC" },

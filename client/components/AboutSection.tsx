@@ -53,7 +53,7 @@ export default function AboutSection() {
           >
             <div className="w-[355px] h-[512px] lg:w-full lg:h-full rounded-2xl overflow-hidden shadow-lg mx-auto lg:mx-0">
               <OptimizedImage
-                src="/portofolioimage.jpg"
+                src="/portofolioimage.webp"
                 alt="About Photo"
                 className="w-full h-full"
                 objectFit="cover"

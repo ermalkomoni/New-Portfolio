@@ -87,7 +87,7 @@ export const defaultImageConfig: ImageConfig = {
 
 // Critical images that should be preloaded
 export const criticalImages = [
-  '/portofolioimage.jpg', // About section image
+  '/portofolioimage.webp', // About section image
 ];
 
 // Image optimization presets for different use cases
