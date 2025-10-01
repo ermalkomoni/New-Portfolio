@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { SmoothScrollLink } from "./SmoothScrollLink";
 import { useSmoothScrollTo } from "./SmoothScrollLink";
@@ -11,7 +11,7 @@ const navigation = [
   { name: "Contact", href: "#contact" },
 ];
 
-export default function Header() {
+const Header = memo(function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -87,10 +87,14 @@ export default function Header() {
     };
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = useCallback((sectionId: string) => {
     scrollTo(sectionId, 80); // 80px offset for header height
     setIsMobileMenuOpen(false); // Close mobile menu after navigation
-  };
+  }, [scrollTo]);
+
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  }, [isMobileMenuOpen]);
 
   return (
     <header 
@@ -131,7 +135,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <div className="flex justify-center">
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={toggleMobileMenu}
               className={cn(
                 "flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300",
                 isScrolled 
@@ -184,4 +188,6 @@ export default function Header() {
       </nav>
     </header>
   );
-}
+});
+
+export default Header;

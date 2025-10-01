@@ -1,5 +1,6 @@
 import ProjectCard from "./ProjectCard";
 import { motion } from "framer-motion";
+import React, { memo, useMemo, useCallback } from "react";
 
 const projects = [
   {
@@ -65,18 +66,205 @@ const projects = [
   }
 ];
 
-export default function ProjectsSection() {
+// Memoized Project Item Component
+const ProjectItem = memo(({ project, index }: { project: typeof projects[0], index: number }) => {
+  const transition = useMemo(() => ({
+    duration: 0.8,
+    delay: 0.1 + (index * 0.15),
+    type: "spring" as const,
+    stiffness: 60,
+    damping: 20
+  }), [index]);
+
+  const whileHover = useMemo(() => ({
+    y: -5,
+    transition: { duration: 0.1 }
+  }), []);
+
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <motion.div
+      key={project.title}
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={transition}
+      viewport={{ once: true, margin: "-100px" }}
+      whileHover={whileHover}
+    >
+      <ProjectCard 
+        project={project} 
+        index={index}
+      />
+    </motion.div>
+  );
+});
+
+ProjectItem.displayName = 'ProjectItem';
+
+// Memoized Call to Action Component
+const CallToAction = memo(() => {
+  const scrollToContact = useCallback(() => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
+
+  const containerVariants = useMemo(() => ({
+    initial: { opacity: 0, scale: 0.8 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { 
+      duration: 0.8, 
+      delay: 0.3,
+      type: "spring" as const,
+      stiffness: 120
+    }
+  }), []);
+
+  const ctaCardVariants = useMemo(() => ({
+    whileHover: { 
+      scale: 1.02,
+      boxShadow: "0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(59, 130, 246, 0.04)"
+    },
+    transition: { duration: 0.3 }
+  }), []);
+
+  const backgroundVariants = useMemo(() => ({
+    animate: {
+      x: ["-50%", "0%"],
+      y: ["-50%", "0%"]
+    },
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      repeatType: "reverse" as const,
+      ease: "easeInOut" as const
+    }
+  }), []);
+
+  const titleVariants = useMemo(() => ({
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 0.6, delay: 0.5 }
+  }), []);
+
+  const descriptionVariants = useMemo(() => ({
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 0.6, delay: 0.6 }
+  }), []);
+
+  const buttonVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, delay: 0.7 },
+    whileHover: { 
+      scale: 1.05,
+      boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.4)"
+    },
+    whileTap: { scale: 0.95 }
+  }), []);
+
+  const cardClasses = useMemo(() => "inline-flex flex-col items-center gap-4 p-8 rounded-2xl bg-gradient-to-br from-brand-500/5 to-brand-600/5 border border-brand-500/20 relative overflow-hidden", []);
+  const backgroundClasses = useMemo(() => "absolute inset-0 opacity-20", []);
+  const contentClasses = useMemo(() => "relative z-10", []);
+  const titleClasses = useMemo(() => "text-2xl font-bold text-foreground", []);
+  const descriptionClasses = useMemo(() => "text-muted-foreground mb-4", []);
+  const buttonClasses = useMemo(() => "inline-flex items-center gap-2 px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-full transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40", []);
+
+  return (
+    <motion.div 
+      className="text-center mt-16 lg:mt-24"
+      {...containerVariants}
+      viewport={{ once: true }}
+    >
+      <motion.div 
+        className={cardClasses}
+        {...ctaCardVariants}
+      >
+        {/* Subtle animated background for current job effect */}
+        <motion.div
+          className={backgroundClasses}
+          style={{
+            background: "linear-gradient(135deg, transparent 0%, rgba(59, 130, 246, 0.2) 50%, transparent 100%)",
+            width: "200%",
+            height: "200%"
+          }}
+          {...backgroundVariants}
+        />
+
+        {/* Content with relative positioning */}
+        <div className={contentClasses}>
+          <motion.h3 
+            className={titleClasses}
+            {...titleVariants}
+            viewport={{ once: true }}
+          >
+            Interested in working together?
+          </motion.h3>
+
+          <motion.p 
+            className={descriptionClasses}
+            {...descriptionVariants}
+            viewport={{ once: true }}
+          >
+            Let's discuss your next project and bring your ideas to life.
+          </motion.p>
+
+          <motion.button
+            onClick={scrollToContact}
+            className={buttonClasses}
+            {...buttonVariants}
+            viewport={{ once: true }}
+          >
+            Get In Touch
+          </motion.button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+});
+
+CallToAction.displayName = 'CallToAction';
+
+// Memoized Projects Section Component
+const ProjectsSection = memo(() => {
+  // Memoized animation variants
+  const subtitleVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, delay: 0.2 }
+  }), []);
+
+  const titleVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 30, scale: 0.9 },
+    animate: { opacity: 1, y: 0, scale: 1 },
+    transition: { duration: 0.8, delay: 0.3, type: "spring" as const, stiffness: 100 }
+  }), []);
+
+  const descriptionVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, delay: 0.4 }
+  }), []);
+
+  // Memoized class names
+  const sectionClasses = useMemo(() => "py-20 px-4 sm:px-6 lg:px-8", []);
+  const containerClasses = useMemo(() => "max-w-7xl mx-auto", []);
+  const headerClasses = useMemo(() => "text-center mb-8", []);
+  const subtitleClasses = useMemo(() => "text-base sm:text-lg text-brand-500 font-medium mb-2", []);
+  const titleClasses = useMemo(() => "h-auto text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 bg-clip-text text-transparent mb-4 sm:mb-6 pb-2", []);
+  const descriptionClasses = useMemo(() => "text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed", []);
+  const projectsGridClasses = useMemo(() => "space-y-16 lg:space-y-12", []);
+
+  return (
+    <section id="projects" className={sectionClasses}>
+      <div className={containerClasses}>
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className={headerClasses}>
           {/* Subtitle with fadeInUp - delay 0.2s */}
           <motion.p 
-            className="text-base sm:text-lg text-brand-500 font-medium mb-2"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            className={subtitleClasses}
+            {...subtitleVariants}
             viewport={{ once: true }}
           >
             My Recent
@@ -84,12 +272,8 @@ export default function ProjectsSection() {
 
           {/* Main title with enhanced fade and scale effect */}
           <motion.h2 
-            className="h-auto text-3xl sm:text-4xl md:text-5xl font-bold 
-                      bg-gradient-to-r from-brand-500 via-brand-400 to-brand-600 
-                      bg-clip-text text-transparent mb-4 sm:mb-6 pb-2"
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 100 }}
+            className={titleClasses}
+            {...titleVariants}
             viewport={{ once: true }}
           >
             Projects
@@ -97,10 +281,8 @@ export default function ProjectsSection() {
 
           {/* Description with fadeInUp - delay 0.4s */}
           <motion.p 
-            className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            className={descriptionClasses}
+            {...descriptionVariants}
             viewport={{ once: true }}
           >
             A showcase of my latest work, featuring full-stack applications built with modern technologies 
@@ -109,120 +291,23 @@ export default function ProjectsSection() {
         </div>
 
         {/* Projects Grid */}
-        <div className="space-y-16 lg:space-y-12">
+        <div className={projectsGridClasses}>
           {projects.map((project, index) => (
-            <motion.div
+            <ProjectItem 
               key={project.title}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.8, 
-                delay: 0.1 + (index * 0.15), // Smoother staggered delays
-                type: "spring",
-                stiffness: 60,
-                damping: 20
-              }}
-              viewport={{ once: true, margin: "-100px" }}
-              whileHover={{ 
-                y: -5,
-                transition: { duration: 0.1 }
-              }}
-            >
-              <ProjectCard 
-                project={project} 
-                index={index}
-              />
-            </motion.div>
+              project={project}
+              index={index}
+            />
           ))}
         </div>
 
         {/* Call to Action with advanced animations */}
-        <motion.div 
-          className="text-center mt-16 lg:mt-24"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ 
-            duration: 0.8, 
-            delay: 0.3,
-            type: "spring",
-            stiffness: 120
-          }}
-          viewport={{ once: true }}
-        >
-          <motion.div 
-            className="inline-flex flex-col items-center gap-4 p-8 rounded-2xl bg-gradient-to-br from-brand-500/5 to-brand-600/5 border border-brand-500/20 relative overflow-hidden"
-            whileHover={{ 
-              scale: 1.02,
-              boxShadow: "0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(59, 130, 246, 0.04)"
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* Subtle animated background for current job effect */}
-            <motion.div
-              className="absolute inset-0 opacity-20"
-              style={{
-                background: "linear-gradient(135deg, transparent 0%, rgba(59, 130, 246, 0.2) 50%, transparent 100%)",
-                width: "200%",
-                height: "200%"
-              }}
-              animate={{
-                x: ["-50%", "0%"],
-                y: ["-50%", "0%"]
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut"
-              }}
-            />
-
-            {/* Content with relative positioning */}
-            <div className="relative z-10">
-              <motion.h3 
-                className="text-2xl font-bold text-foreground"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                viewport={{ once: true }}
-              >
-                Interested in working together?
-              </motion.h3>
-
-              <motion.p 
-                className="text-muted-foreground mb-4"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                viewport={{ once: true }}
-              >
-                Let's discuss your next project and bring your ideas to life.
-              </motion.p>
-
-              <motion.button
-                onClick={() => {
-                  const element = document.getElementById('contact');
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-full transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-                viewport={{ once: true }}
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.4)"
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get In Touch
-              </motion.button>
-            </div>
-          </motion.div>
-        </motion.div>
+        <CallToAction />
       </div>
     </section>
   );
-}
+});
+
+ProjectsSection.displayName = 'ProjectsSection';
+
+export default ProjectsSection;

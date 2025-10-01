@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, memo, useMemo } from "react";
 import { cn } from "@/lib/utils";
 
 interface TechItem {
@@ -13,7 +13,8 @@ interface TechStackProps {
   direction?: "left" | "right";
 }
 
-const TechIcon = ({ 
+// Memoized TechIcon component for performance optimization
+const TechIcon = memo(({ 
   tech, 
   index, 
   isCenter, 
@@ -28,53 +29,74 @@ const TechIcon = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Calculate scale and opacity based on distance from center
-  // Center item (distance 0) = 1.6x, items get progressively smaller
-  const scale = isCenter ? 1.4 : Math.max(0.7, 1 - Math.abs(distanceFromCenter) * 0.15);
-  const opacity = isCenter ? 1 : Math.max(0.4, 1 - Math.abs(distanceFromCenter) * 0.15);
-  const brightness = isCenter ? 1 : Math.max(0.6, 1 - Math.abs(distanceFromCenter) * 0.2);
+  // Memoize expensive calculations to prevent recalculation on every render
+  const { scale, opacity, brightness } = useMemo(() => {
+    const absDistance = Math.abs(distanceFromCenter);
+    return {
+      scale: isCenter ? 1.4 : Math.max(0.7, 1 - absDistance * 0.15),
+      opacity: isCenter ? 1 : Math.max(0.4, 1 - absDistance * 0.15),
+      brightness: isCenter ? 1 : Math.max(0.6, 1 - absDistance * 0.2)
+    };
+  }, [isCenter, distanceFromCenter]);
+
+  // Memoize style object to prevent object recreation
+  const containerStyle = useMemo(() => ({
+    transform: `scale(${scale})`,
+    opacity: opacity,
+    filter: `brightness(${brightness})`,
+    transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
+  }), [scale, opacity, brightness]);
+
+  // Memoize event handlers to prevent function recreation
+  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
+  const handleClick = useCallback(() => onClick(), [onClick]);
+
+  // Memoize class names to prevent recalculation
+  const containerClasses = useMemo(() => cn(
+    "relative w-20 h-20 md:w-24 md:h-24 rounded-full transition-all duration-200 ease-out",
+    "hover:scale-110 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-500/20",
+    isHovered && "scale-110 -translate-y-2 shadow-2xl shadow-brand-500/20"
+  ), [isHovered]);
+
+  const logoContainerClasses = useMemo(() => cn(
+    "flex items-center justify-center transition-all duration-200 ease-out",
+    isCenter ? "w-12 h-12 md:w-14 md:h-14" : "w-10 h-10 md:w-12 md:h-12"
+  ), [isCenter]);
+
+  const glowClasses = useMemo(() => cn(
+    "absolute inset-0 rounded-full transition-all duration-200 ease-out pointer-events-none",
+    isHovered ? "shadow-2xl shadow-brand-500/30 bg-brand-300/10" : ""
+  ), [isHovered]);
+
+  const tooltipClasses = useMemo(() => cn(
+    "hidden md:block absolute top-full left-1/2 transform -translate-x-1/2 mt-4 px-3 py-1 bg-background/90 backdrop-blur-sm border border-border rounded-lg text-sm font-medium text-foreground opacity-0 transition-all duration-500 ease-out pointer-events-none whitespace-nowrap z-20",
+    isHovered && "opacity-100 translate-y-0",
+    !isHovered && "translate-y-2"
+  ), [isHovered]);
 
   return (
     <div 
       className="relative group flex-shrink-0 cursor-pointer"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
-      style={{
-        transform: `scale(${scale})`,
-        opacity: opacity,
-        filter: `brightness(${brightness})`,
-        transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
+      style={containerStyle}
     >
       {/* Glass effect container */}
-      <div
-        className={cn(
-          "relative w-20 h-20 md:w-24 md:h-24 rounded-full transition-all duration-200 ease-out",
-          "hover:scale-110 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-500/20",
-          isHovered && "scale-110 -translate-y-2 shadow-2xl shadow-brand-500/20"
-        )}
-      >
+      <div className={containerClasses}>
         {/* Glass effect background */}
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md border border-white/30 shadow-lg transition-all duration-500 ease-out">
           {/* Logo container */}
           <div className="w-full h-full flex items-center justify-center rounded-full relative z-10">
-            <div className={cn(
-              "flex items-center justify-center transition-all duration-200 ease-out",
-              isCenter ? "w-12 h-12 md:w-14 md:h-14" : "w-10 h-10 md:w-12 md:h-12"
-            )}>
+            <div className={logoContainerClasses}>
               {tech.logo}
             </div>
           </div>
         </div>
 
         {/* Hover glow effect */}
-        <div
-          className={cn(
-            "absolute inset-0 rounded-full transition-all duration-200 ease-out pointer-events-none",
-            isHovered ? "shadow-2xl shadow-brand-500/30 bg-brand-300/10" : ""
-          )}
-        />
+        <div className={glowClasses} />
 
         {/* Subtle pulse animation for center item */}
         {isCenter && (
@@ -83,18 +105,18 @@ const TechIcon = ({
       </div>
 
       {/* Tech name tooltip - hidden on mobile */}
-      <div className={cn(
-        "hidden md:block absolute top-full left-1/2 transform -translate-x-1/2 mt-4 px-3 py-1 bg-background/90 backdrop-blur-sm border border-border rounded-lg text-sm font-medium text-foreground opacity-0 transition-all duration-500 ease-out pointer-events-none whitespace-nowrap z-20",
-        isHovered && "opacity-100 translate-y-0",
-        !isHovered && "translate-y-2"
-      )}>
+      <div className={tooltipClasses}>
         {tech.name}
       </div>
     </div>
   );
-};
+});
 
-export default function TechStack({ title, technologies, direction = "left" }: TechStackProps) {
+// Set display name for debugging
+TechIcon.displayName = 'TechIcon';
+
+// Memoized TechStack component for performance
+const TechStack = memo(({ title, technologies, direction = "left" }: TechStackProps) => {
   const [centerIndex, setCenterIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -111,8 +133,11 @@ export default function TechStack({ title, technologies, direction = "left" }: T
     setCenterIndex(Math.floor(baseLength / 2));
   }, [baseLength]);
 
-  // Create infinite loop array by duplicating the technologies multiple times
-  const infiniteTechnologies = [...technologies, ...technologies, ...technologies, ...technologies, ...technologies];
+  // Memoize infinite technologies array to prevent recreation on every render
+  const infiniteTechnologies = useMemo(() => 
+    [...technologies, ...technologies, ...technologies, ...technologies, ...technologies],
+    [technologies]
+  );
   const totalInfiniteLength = infiniteTechnologies.length;
 
   const shiftLeft = useCallback(() => {
@@ -233,8 +258,8 @@ export default function TechStack({ title, technologies, direction = "left" }: T
     }
   }, [isDragging, shiftLeft, shiftRight]);
 
-  // Calculate which 7 items to show based on centerIndex
-  const getVisibleItems = () => {
+  // Memoize expensive visible items calculation
+  const visibleItems = useMemo(() => {
     const startIndex = centerIndex - 4; // Show 4 items to the left
     const items = [];
     
@@ -251,9 +276,7 @@ export default function TechStack({ title, technologies, direction = "left" }: T
     }
     
     return items;
-  };
-
-  const visibleItems = getVisibleItems();
+  }, [centerIndex, totalInfiniteLength, baseLength, infiniteTechnologies]);
 
   return (
     <div className="max-w-8xl mx-auto">
@@ -317,4 +340,6 @@ export default function TechStack({ title, technologies, direction = "left" }: T
       </div>
     </div>
   );
-}
+});
+
+export default TechStack;
