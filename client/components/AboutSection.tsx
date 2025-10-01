@@ -1,5 +1,4 @@
 import { GraduationCap, Briefcase, Calendar, MapPin } from "lucide-react";
-import OptimizedImage from "./ui/optimized-image";
 import { motion } from "framer-motion";
 
 const education = [
@@ -52,17 +51,11 @@ export default function AboutSection() {
             viewport={{ once: true }}
           >
             <div className="w-[355px] h-[512px] lg:w-full lg:h-full rounded-2xl overflow-hidden shadow-lg mx-auto lg:mx-0">
-              <OptimizedImage
+              <img
                 src="/portofolioimage.webp"
                 alt="About Photo"
-                className="w-full h-full"
-                objectFit="cover"
-                priority={true}
-                quality={85}
-                sizes="(max-width: 1024px) 355px, 400px"
-                showLoadingSpinner={true}
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                className="w-full h-full object-cover"
+                loading="eager"
               />
             </div>
           </motion.div>

@@ -1,6 +1,5 @@
 import { ExternalLink, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
-import OptimizedImage from "./ui/optimized-image";
 
 interface TechBadge {
   name: string;
@@ -42,16 +41,11 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             <div className="w-full lg:w-1/2">
               <div className="relative group/image">
                 <div className="aspect-video rounded-xl overflow-hidden border border-border shadow-lg">
-                  <OptimizedImage
+                  <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full transition-transform duration-500 group-hover/image:scale-105"
-                    objectFit="cover"
-                    quality={80}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    showLoadingSpinner={true}
-                    placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover/image:scale-105"
+                    loading="lazy"
                   />
                 </div>
                 {/* Image overlay on hover */}
