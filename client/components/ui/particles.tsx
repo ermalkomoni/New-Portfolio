@@ -17,18 +17,36 @@ function MousePosition(): MousePosition {
     x: 0,
     y: 0,
   })
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({ x: event.clientX, y: event.clientY })
+    // Check if device is mobile/touch device
+    const checkIsMobile = () => {
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      const isSmallScreen = window.innerWidth < 768
+      setIsMobile(isTouchDevice || isSmallScreen)
     }
 
-    window.addEventListener("mousemove", handleMouseMove)
+    checkIsMobile()
+    window.addEventListener('resize', checkIsMobile)
+
+    const handleMouseMove = (event: MouseEvent) => {
+      // Only track mouse movement on non-mobile devices
+      if (!isMobile) {
+        setMousePosition({ x: event.clientX, y: event.clientY })
+      }
+    }
+
+    // Only add mouse listener on non-mobile devices
+    if (!isMobile) {
+      window.addEventListener("mousemove", handleMouseMove)
+    }
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener('resize', checkIsMobile)
     }
-  }, [])
+  }, [isMobile])
 
   return mousePosition
 }
@@ -93,12 +111,23 @@ export const Particles: React.FC<ParticlesProps> = ({
   const circles = useRef<Circle[]>([])
   const mousePosition = MousePosition()
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
+  const [isMobile, setIsMobile] = useState(false)
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 })
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1
   const rafID = useRef<number | null>(null)
   const resizeTimeout = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
+    // Check if device is mobile/touch device
+    const checkIsMobile = () => {
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      const isSmallScreen = window.innerWidth < 768
+      setIsMobile(isTouchDevice || isSmallScreen)
+    }
+
+    checkIsMobile()
+    window.addEventListener('resize', checkIsMobile)
+
     if (canvasRef.current) {
       context.current = canvasRef.current.getContext("2d")
     }
@@ -124,6 +153,7 @@ export const Particles: React.FC<ParticlesProps> = ({
         clearTimeout(resizeTimeout.current)
       }
       window.removeEventListener("resize", handleResize)
+      window.removeEventListener('resize', checkIsMobile)
     }
   }, [color])
 
@@ -273,12 +303,16 @@ export const Particles: React.FC<ParticlesProps> = ({
       }
       circle.x += circle.dx + vx
       circle.y += circle.dy + vy
-      circle.translateX +=
-        (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) /
-        ease
-      circle.translateY +=
-        (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) /
-        ease
+      
+      // Only apply magnetism on non-mobile devices
+      if (!isMobile) {
+        circle.translateX +=
+          (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) /
+          ease
+        circle.translateY +=
+          (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) /
+          ease
+      }
 
       drawCircle(circle, true)
 

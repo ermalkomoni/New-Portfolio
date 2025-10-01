@@ -7,8 +7,16 @@ import ProjectsSection from "../components/ProjectsSection";
 import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function Index() {
+  const [showParticles, setShowParticles] = useState(true);
+
+  useEffect(() => {
+    // Always show particles, but we'll control the motion in the component itself
+    setShowParticles(true);
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
