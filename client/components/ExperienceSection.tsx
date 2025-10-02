@@ -6,7 +6,7 @@ const workExperience = [
   {
     company: "SPINP Agency",
     position: "Software Developer",
-    period: "2023 - 2024", 
+    period: "June 2023 - June 2024", 
     location: "Kosovo - Onsite",
     description: "Developed and maintained web applications using modern technologies, collaborated with design teams, and implemented responsive user interfaces for client projects.",
     technologies: ["C#", ".NET", "Angular", "JavaScript", "SQL Server", "PostgreSQL"],
@@ -15,7 +15,7 @@ const workExperience = [
   {
     company: "SWISS GRC",
     position: "Solution Engineer",
-    period: "2024 - Present",
+    period: "July 2024 - Present",
     location: "Switzerland - Remote",
     description: "Leading solution engineering initiatives, developing enterprise-level applications, and collaborating with cross-functional teams to deliver innovative software solutions.",
     technologies: ["C#", ".NET", "Azure", "JavaScript", "React JS", "SQL Server", "SharePoint"],
