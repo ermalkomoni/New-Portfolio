@@ -132,6 +132,11 @@
     --neutral-800: 215 28% 17%;
     --neutral-900: 221 39% 11%;
     --neutral-950: 224 71% 4%;
+
+    /* Dynamic Island Configuration */
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --dynamic-island-clearance: 20px;
+    --content-offset: max(calc(var(--safe-area-top) + var(--dynamic-island-clearance)), 80px);
   }
 
   .dark {
@@ -231,11 +236,11 @@
   body::before {
     content: '';
     position: fixed;
-    top: 0;
+    top: calc(var(--safe-area-top) * -1);
     left: 0;
     right: 0;
-    height: 100vh;
-    height: 100dvh;
+    height: calc(100vh + var(--safe-area-top));
+    height: calc(100dvh + var(--safe-area-top));
     background: radial-gradient(ellipse at top, hsl(var(--brand-950)) 0%, hsl(var(--background)) 50%);
     z-index: -2;
     pointer-events: none;
@@ -248,6 +253,27 @@
     min-height: 100vh;
     min-height: 100dvh; /* Dynamic viewport height */
     min-height: 100svh;
+    padding-top: var(--content-offset);
+    transition: padding-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .content-adaptive {
+    padding-top: var(--content-offset);
+    transition: padding-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Fixed header that adapts to dynamic island */
+  .header-adaptive {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: calc(var(--safe-area-top) + 15px);
+    padding-left: env(safe-area-inset-left, 20px);
+    padding-right: env(safe-area-inset-right, 20px);
+    padding-bottom: 15px;
+    transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
   }
 
   @supports (-webkit-touch-callout: none) {
@@ -271,7 +297,7 @@
   /* Ensure proper safe area handling for iOS */
   @supports (padding: env(safe-area-inset-top)) {
     body {
-      padding-top: env(safe-area-inset-top);
+      padding-top: 0;
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
       padding-bottom: env(safe-area-inset-bottom);
