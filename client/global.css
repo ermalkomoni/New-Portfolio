@@ -663,7 +663,7 @@
     left: 0;
     width: 100vw;
     height: 110vh;
-    fill: #050709;
+    fill: hsl(var(--background));
   }
 
   .preloader-text {

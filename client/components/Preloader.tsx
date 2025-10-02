@@ -70,12 +70,15 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         background: 'radial-gradient(ellipse at top, hsl(var(--brand-950)) 0%, hsl(var(--background)) 50%)'
       }}
     >
-      {/* SVG Background - matching original design */}
+      {/* SVG Background - matching website theme */}
       <svg 
         ref={svgRef}
         viewBox="0 0 1000 1000" 
         preserveAspectRatio="none"
-        className="absolute top-0 w-screen h-[110vh] fill-[#050709]"
+        className="absolute top-0 w-screen h-[110vh]"
+        style={{
+          fill: 'hsl(var(--background))'
+        }}
       >
         <path 
           d="M0,1005S175,995,500,995s500,5,500,5V0H0Z"
