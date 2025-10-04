@@ -15,7 +15,7 @@ const education = [
     color: "text-brand-500"
   },
   {
-    institution: "UBT",
+    institution: "UBT College",
     year: "(2020-2024)",
     degree: "Bachelor in Computer Science and Engineering",
     color: "text-brand-500"
