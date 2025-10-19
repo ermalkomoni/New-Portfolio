@@ -110,7 +110,7 @@ const Header = memo(function Header() {
           <div className={cn(
             "flex items-center space-x-8 lg:space-x-12 px-6 lg:px-8 py-3 rounded-full transition-all duration-300",
             isScrolled 
-              ? "backdrop-blur-md border border-white/20 shadow-lg bg-white/5" 
+              ? "glass-effect shadow-lg" 
               : ""
           )}>
             {navigation.map((item) => (
@@ -139,8 +139,8 @@ const Header = memo(function Header() {
               className={cn(
                 "flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300",
                 isScrolled 
-                  ? "backdrop-blur-md border border-white/20 shadow-lg bg-white/5" 
-                  : ""
+                  ? "glass-effect shadow-lg" 
+                  : "bg-black/20 border border-white/10"
               )}
             >
               {isMobileMenuOpen ? (
@@ -164,7 +164,7 @@ const Header = memo(function Header() {
           {/* Mobile Menu Dropdown */}
           {isMobileMenuOpen && (
             <div className="absolute top-full left-0 right-0 mt-2 px-4">
-              <div className="backdrop-blur-md border border-white/20 shadow-lg bg-white/5 rounded-xl p-4">
+              <div className="glass-effect shadow-lg rounded-xl p-4">
                 <div className="flex flex-col space-y-3">
                   {navigation.map((item) => (
                     <button

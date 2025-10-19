@@ -4,6 +4,11 @@ export default {
   darkMode: ["class"],
   content: ["./client/**/*.{ts,tsx}"],
   prefix: "",
+  safelist: [
+    'glass-effect',
+    'backdrop-blur-md',
+    'backdrop-blur-sm'
+  ],
   theme: {
     container: {
       center: true,
