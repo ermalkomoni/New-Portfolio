@@ -1,6 +1,7 @@
 import { Calendar, MapPin, Building, Briefcase } from "lucide-react";
 import TechStack from "./TechStack";
 import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 
 const workExperience = [
   {
@@ -9,16 +10,25 @@ const workExperience = [
     period: "June 2023 - June 2024", 
     location: "Kosovo - Onsite",
     description: "Developed and maintained web applications using modern technologies, collaborated with design teams, and implemented responsive user interfaces for client projects.",
-    technologies: ["C#", ".NET", "Angular", "JavaScript", "SQL Server", "PostgreSQL"],
+    technologies: ["C#", ".NET", "JavaScript", "SQL Server", "PostgreSQL"],
     isCurrentJob: false
   },
   {
-    company: "SWISS GRC",
+    company: "Swiss GRC",
     position: "Solution Engineer",
-    period: "July 2024 - Present",
+    period: "July 2024 - November 2025",
     location: "Switzerland - Remote",
-    description: "Leading solution engineering initiatives, developing enterprise-level applications, and collaborating with cross-functional teams to deliver innovative software solutions.",
+    description: "Contributed on solution engineering initiatives, developing enterprise-level applications, and collaborating with cross-functional teams to deliver innovative software solutions.",
     technologies: ["C#", ".NET", "Azure", "JavaScript", "React JS", "SQL Server", "SharePoint"],
+    isCurrentJob: false
+  },
+  {
+    company: "Visiar HealthCare",
+    position: "Software Engineer",
+    period: "December 2025 - Present",
+    location: "Netherlands - Hybrid",
+    description: "Engineering healthcare solutions tailored for the Netherlands market. Building intelligent applications with AI-powered features to enhance operational efficiency and improve patient care quality.",
+    technologies: ["C#", ".NET", "Next JS", "Python", "AI", "Elastic Search", "Azure", "PostgreSQL"],
     isCurrentJob: true
   }
 ];
@@ -245,6 +255,50 @@ const backendTech = [
 // ];
 
 export default function ExperienceSection() {
+  const [timelineHeight, setTimelineHeight] = useState<string>('');
+  const [timelineTop, setTimelineTop] = useState<string>('');
+  const firstIconRef = useRef<HTMLDivElement>(null);
+  const lastIconRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const calculateTimeline = () => {
+      if (firstIconRef.current && lastIconRef.current) {
+        const firstIconRect = firstIconRef.current.getBoundingClientRect();
+        const lastIconRect = lastIconRef.current.getBoundingClientRect();
+        const containerRect = firstIconRef.current.closest('.relative')?.getBoundingClientRect();
+        
+        if (containerRect) {
+          // Calculate distance from center of first icon to center of last icon
+          const firstIconCenter = firstIconRect.top + firstIconRect.height / 2;
+          const lastIconCenter = lastIconRect.top + lastIconRect.height / 2;
+          const distance = lastIconCenter - firstIconCenter;
+          
+          // Calculate top position: center of first icon relative to container
+          const topPosition = firstIconCenter - containerRect.top;
+          
+          setTimelineHeight(`${distance}px`);
+          setTimelineTop(`${topPosition}px`);
+        }
+      } else {
+        const isMobile = window.innerWidth < 640;
+        const itemHeight = isMobile ? 180 : 170;
+        const gapSize = isMobile ? 32 : 48;
+        const height = workExperience.length * itemHeight + (workExperience.length - 1) * gapSize;
+        const top = isMobile ? 48 : 72; // Mobile: 32px (top-8) + 16px (half icon), Desktop: 40px (top-10) + 32px (half icon)
+        setTimelineHeight(`${height}px`);
+        setTimelineTop(`${top}px`);
+      }
+    };
+    
+    const timeoutId = setTimeout(calculateTimeline, 100);
+    window.addEventListener('resize', calculateTimeline);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', calculateTimeline);
+    };
+  }, []);
+
   return (
     <section id="experience" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-8xl mx-auto">
@@ -301,8 +355,13 @@ export default function ExperienceSection() {
 
           <div className="relative max-w-4xl mx-auto">
             {/* Timeline line - animated with scaleY */}
+            {/* Height and top position calculated from center of first icon to center of last icon using refs */}
             <motion.div 
-              className="absolute left-4 sm:left-8 top-8 sm:top-10 w-0.5 h-[calc(2*160px)] sm:h-[calc(2*150px)] bg-gradient-to-b from-brand-500 to-brand-0"
+              className="absolute left-4 sm:left-8 w-0.5 bg-gradient-to-b from-brand-500 to-brand-0"
+              style={{
+                top: timelineTop || 'calc(2rem + 1rem)', // Center of first briefcase icon
+                height: timelineHeight || `calc(${workExperience.length} * 160px + ${(workExperience.length - 1) * 32}px)`,
+              }}
               initial={{ scaleY: 0, originY: 0 }}
               whileInView={{ scaleY: 1 }}
               transition={{ duration: 1.2, delay: 0.6 }}
@@ -323,6 +382,7 @@ export default function ExperienceSection() {
                 >
                   {/* Timeline dot with pulsing animation for current job */}
                   <motion.div 
+                    ref={index === 0 ? firstIconRef : index === workExperience.length - 1 ? lastIconRef : null}
                     className={`relative z-10 w-8 h-8 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-lg ${
                       job.isCurrentJob 
                         ? 'bg-brand-500' 
@@ -331,12 +391,14 @@ export default function ExperienceSection() {
                     animate={job.isCurrentJob ? {
                       boxShadow: [
                         "0 0 0 0 rgba(59, 130, 246, 0.7)",
-                        "0 0 0 10px rgba(59, 130, 246, 0)",
-                        "0 0 0 0 rgba(59, 130, 246, 0)"
+                        "0 0 0 8px rgba(59, 130, 246, 0.5)",
+                        "0 0 0 4px rgba(59, 130, 246, 0.2)",
+                        "0 0 0 2px rgba(59, 130, 246, 0)"
                       ]
                     } : {}}
                     transition={job.isCurrentJob ? {
-                      duration: 1,
+                      duration: 2,
+                      ease: "easeInOut",
                       repeat: Infinity,
                       repeatType: "loop"
                     } : {}}

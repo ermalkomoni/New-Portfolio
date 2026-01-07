@@ -126,7 +126,7 @@ export default function Index() {
                     <Mail className="w-4 h-4" />
                     Contact Info
                   </button>
-                  <ShimmerButton
+                  {/* <ShimmerButton
                     onClick={() => {
                       window.open('/Ermal_Komoni_Resume.pdf', '_blank');
                     }}
@@ -134,7 +134,7 @@ export default function Index() {
                   >
                     <FileScan className="w-4 h-4" />
                     Preview CV
-                  </ShimmerButton>
+                  </ShimmerButton> */}
                 </motion.div>
 
                 {/* Social Links */}
