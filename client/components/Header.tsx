@@ -1,91 +1,105 @@
 import { cn } from "@/lib/utils";
-import { useState, useEffect, memo, useCallback } from "react";
+import { useState, useEffect, memo, useCallback, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { SmoothScrollLink } from "./SmoothScrollLink";
 import { useSmoothScrollTo } from "./SmoothScrollLink";
+import { navigationItems } from "@/config/navigation";
 
-const navigation = [
-  { name: "About", href: "#about" },
-  { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
-];
+// Throttle utility for performance
+const useThrottle = <T extends (...args: any[]) => void>(
+  callback: T,
+  delay: number
+): T => {
+  const lastCall = useRef(0);
+  const lastCallbackRef = useRef(callback);
+  
+  // Update callback ref when callback changes
+  useEffect(() => {
+    lastCallbackRef.current = callback;
+  }, [callback]);
+  
+  return useCallback((...args: Parameters<T>) => {
+    const now = Date.now();
+    if (now - lastCall.current >= delay) {
+      lastCall.current = now;
+      lastCallbackRef.current(...args);
+    }
+  }, [delay]) as T;
+};
 
 const Header = memo(function Header() {
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOverWhiteBackground, setIsOverWhiteBackground] = useState(false);
+  const lastScrollY = useRef(0);
   const scrollTo = useSmoothScrollTo();
 
-  // Handle scroll-based visibility and glass effect
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+  // Memoized background color checker
+  const checkBackgroundColor = useCallback(() => {
+    const headerElement = document.querySelector('header');
+    if (headerElement) {
+      const rect = headerElement.getBoundingClientRect();
+      const centerY = rect.top + rect.height / 2;
       
-      // Show header when scrolling up, hide when scrolling down
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false); // Scrolling down
-      } else {
-        setIsVisible(true); // Scrolling up
-      }
-      
-      // Add glass effect when scrolling up (when header is visible and scrolled)
-      if (currentScrollY > 50 && currentScrollY < lastScrollY) {
-        setIsScrolled(true); // Scrolling up with some scroll
-      } else if (currentScrollY <= 50) {
-        setIsScrolled(false); // At top of page
-      }
-      
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
-
-  // Check if header is over white/light background for contrast
-  useEffect(() => {
-    const checkBackgroundColor = () => {
-      const headerElement = document.querySelector('header');
-      if (headerElement) {
-        const rect = headerElement.getBoundingClientRect();
-        const centerY = rect.top + rect.height / 2;
+      // Get element at header center position
+      const elementAtCenter = document.elementFromPoint(window.innerWidth / 2, centerY);
+      if (elementAtCenter) {
+        const computedStyle = window.getComputedStyle(elementAtCenter);
+        const backgroundColor = computedStyle.backgroundColor;
         
-        // Get element at header center position
-        const elementAtCenter = document.elementFromPoint(window.innerWidth / 2, centerY);
-        if (elementAtCenter) {
-          const computedStyle = window.getComputedStyle(elementAtCenter);
-          const backgroundColor = computedStyle.backgroundColor;
-          
-          // Check if background is white/light
-          const isLight = backgroundColor.includes('rgb(255, 255, 255)') || 
-                         backgroundColor.includes('rgb(248, 250, 252)') || // slate-50
-                         backgroundColor.includes('rgb(241, 245, 249)') || // slate-100
-                         backgroundColor.includes('rgb(226, 232, 240)');   // slate-200
-          
-          setIsOverWhiteBackground(isLight);
-        }
+        // Check if background is white/light
+        const isLight = backgroundColor.includes('rgb(255, 255, 255)') || 
+                       backgroundColor.includes('rgb(248, 250, 252)') || // slate-50
+                       backgroundColor.includes('rgb(241, 245, 249)') || // slate-100
+                       backgroundColor.includes('rgb(226, 232, 240)');   // slate-200
+        
+        setIsOverWhiteBackground(isLight);
       }
-    };
+    }
+  }, []);
 
-    // Check on scroll and resize
-    const handleBackgroundCheck = () => {
-      setTimeout(checkBackgroundColor, 100); // Small delay to ensure DOM is updated
-    };
+  // Combined scroll handler for better performance
+  const handleScrollRaw = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    const prevScrollY = lastScrollY.current;
+    
+    // Show header when scrolling up, hide when scrolling down
+    if (currentScrollY > prevScrollY && currentScrollY > 100) {
+      setIsVisible(false); // Scrolling down
+    } else {
+      setIsVisible(true); // Scrolling up
+    }
+    
+    // Add glass effect when scrolling up (when header is visible and scrolled)
+    if (currentScrollY > 50 && currentScrollY < prevScrollY) {
+      setIsScrolled(true); // Scrolling up with some scroll
+    } else if (currentScrollY <= 50) {
+      setIsScrolled(false); // At top of page
+    }
+    
+    lastScrollY.current = currentScrollY;
+    
+    // Check background color (throttled within the scroll handler)
+    checkBackgroundColor();
+  }, [checkBackgroundColor]);
 
-    window.addEventListener('scroll', handleBackgroundCheck, { passive: true });
-    window.addEventListener('resize', handleBackgroundCheck);
+  // Throttled scroll handler (~60fps)
+  const handleScroll = useThrottle(handleScrollRaw, 16);
+
+  // Single consolidated scroll listener
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', checkBackgroundColor);
     
     // Initial check
     checkBackgroundColor();
     
     return () => {
-      window.removeEventListener('scroll', handleBackgroundCheck);
-      window.removeEventListener('resize', handleBackgroundCheck);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', checkBackgroundColor);
     };
-  }, []);
+  }, [handleScroll, checkBackgroundColor]);
 
   const scrollToSection = useCallback((sectionId: string) => {
     scrollTo(sectionId, 80); // 80px offset for header height
@@ -113,7 +127,7 @@ const Header = memo(function Header() {
               ? "glass-effect shadow-lg" 
               : ""
           )}>
-            {navigation.map((item) => (
+            {navigationItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
@@ -166,7 +180,7 @@ const Header = memo(function Header() {
             <div className="absolute top-full left-0 right-0 mt-2 px-4">
               <div className="glass-effect shadow-lg rounded-xl p-4">
                 <div className="flex flex-col space-y-3">
-                  {navigation.map((item) => (
+                  {navigationItems.map((item) => (
                     <button
                       key={item.name}
                       onClick={() => scrollToSection(item.href)}

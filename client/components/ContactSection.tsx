@@ -90,33 +90,7 @@ export default function ContactSection() {
     }
   };
 
-  // Auto-focus the name input when the form comes into view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && nameInputRef.current) {
-            // Small delay to ensure smooth animation completion
-            setTimeout(() => {
-              nameInputRef.current?.focus();
-            }, 1000);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    const formElement = document.getElementById('contact-form');
-    if (formElement) {
-      observer.observe(formElement);
-    }
-
-    return () => {
-      if (formElement) {
-        observer.unobserve(formElement);
-      }
-    };
-  }, []);
+  // Removed auto-focus behavior - it can be jarring on mobile and triggers keyboard unexpectedly
 
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -266,27 +240,30 @@ export default function ContactSection() {
               </h3>
             </motion.div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Status Message */}
-              {submitStatus !== 'idle' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={cn(
-                    "p-4 rounded-lg flex items-center gap-3",
-                    submitStatus === 'success' 
-                      ? "bg-green-50 border border-green-200 text-green-800" 
-                      : "bg-red-50 border border-red-200 text-red-800"
-                  )}
-                >
-                  {submitStatus === 'success' ? (
-                    <CheckCircle className="w-5 h-5 text-green-600" />
-                  ) : (
-                    <AlertCircle className="w-5 h-5 text-red-600" />
-                  )}
-                  <span className="text-sm font-medium">{submitMessage}</span>
-                </motion.div>
-              )}
+            <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact form">
+              {/* Status Message - with aria-live for screen readers */}
+              <div aria-live="polite" aria-atomic="true">
+                {submitStatus !== 'idle' && (
+                  <motion.div
+                    role="alert"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={cn(
+                      "p-4 rounded-lg flex items-center gap-3",
+                      submitStatus === 'success' 
+                        ? "bg-green-50 border border-green-200 text-green-800" 
+                        : "bg-red-50 border border-red-200 text-red-800"
+                    )}
+                  >
+                    {submitStatus === 'success' ? (
+                      <CheckCircle className="w-5 h-5 text-green-600" aria-hidden="true" />
+                    ) : (
+                      <AlertCircle className="w-5 h-5 text-red-600" aria-hidden="true" />
+                    )}
+                    <span className="text-sm font-medium">{submitMessage}</span>
+                  </motion.div>
+                )}
+              </div>
               <motion.div 
                 className="grid sm:grid-cols-2 gap-6"
                 initial={{ opacity: 0, y: 20 }}
@@ -303,9 +280,11 @@ export default function ContactSection() {
                     type="text"
                     id="name"
                     name="name"
+                    autoComplete="name"
                     value={formData.name}
                     onChange={handleInputChange}
                     required
+                    aria-required="true"
                     className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
                     placeholder="Your name"
                   />
@@ -318,9 +297,11 @@ export default function ContactSection() {
                     type="email"
                     id="email"
                     name="email"
+                    autoComplete="email"
                     value={formData.email}
                     onChange={handleInputChange}
                     required
+                    aria-required="true"
                     className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
                     placeholder="your.email@example.com"
                   />
@@ -343,6 +324,7 @@ export default function ContactSection() {
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
+                  aria-required="true"
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
                   placeholder="What's this about?"
                 />
@@ -363,6 +345,7 @@ export default function ContactSection() {
                   value={formData.message}
                   onChange={handleInputChange}
                   required
+                  aria-required="true"
                   rows={5}
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all resize-none"
                   placeholder="Tell me about your project..."

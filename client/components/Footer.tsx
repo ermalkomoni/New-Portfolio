@@ -1,29 +1,12 @@
 import { Github, Linkedin, Mail } from "lucide-react";
+import { navigationItems, socialLinks as socialLinksConfig } from "@/config/navigation";
 
-const navigation = [
-  { name: "About", href: "#about" },
-  { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
-];
-
-const socialLinks = [
-  {
-    name: "LinkedIn",
-    href: "https://linkedin.com/in/ermalkomoni",
-    icon: Linkedin
-  },
-  {
-    name: "GitHub", 
-    href: "https://github.com/ermalkomoni",
-    icon: Github
-  },
-  {
-    name: "Email",
-    href: "mailto:ermalkomonidev@gmail.com",
-    icon: Mail
-  }
-];
+// Map icon names to Lucide components
+const iconMap = {
+  linkedin: Linkedin,
+  github: Github,
+  mail: Mail,
+} as const;
 
 export default function Footer() {
   const scrollToSection = (sectionId: string) => {
@@ -54,18 +37,21 @@ export default function Footer() {
             </p>
             {/* Social Links */}
             <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 text-secondary-foreground transition-all duration-300 hover:scale-110 shadow-sm hover:shadow-md"
-                  aria-label={social.name}
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
+              {socialLinksConfig.map((social) => {
+                const IconComponent = iconMap[social.iconName];
+                return (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 text-secondary-foreground transition-all duration-300 hover:scale-110 shadow-sm hover:shadow-md"
+                    aria-label={social.name}
+                  >
+                    <IconComponent className="w-5 h-5" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -73,7 +59,7 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold text-foreground">Navigation</h4>
             <ul className="space-y-3">
-              {navigation.map((item) => (
+              {navigationItems.map((item) => (
                 <li key={item.name}>
                   <button
                     onClick={() => scrollToSection(item.href)}

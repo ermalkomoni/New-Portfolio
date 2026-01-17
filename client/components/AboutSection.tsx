@@ -50,12 +50,14 @@ export default function AboutSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <div className="w-[355px] h-[512px] lg:w-full lg:h-full rounded-2xl overflow-hidden shadow-lg mx-auto lg:mx-0">
+            <div className="w-full max-w-[355px] aspect-[355/512] lg:max-w-full lg:aspect-auto rounded-2xl overflow-hidden shadow-lg mx-auto lg:mx-0">
               <img
                 src="/portofolioimage.webp"
-                alt="About Photo"
+                alt="Ermal Komoni - Software Engineer portrait photo"
                 className="w-full h-full object-cover"
                 loading="eager"
+                width={355}
+                height={512}
               />
             </div>
           </motion.div>

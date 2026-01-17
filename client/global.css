@@ -84,7 +84,7 @@
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted-foreground: 215 20.2% 72%;
 
     --accent: 217 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
@@ -151,7 +151,7 @@
     --secondary-foreground: 210 20% 98%;
 
     --muted: 215 28% 17%;
-    --muted-foreground: 218 11% 65%;
+    --muted-foreground: 218 11% 72%;
 
     --accent: 215 28% 17%;
     --accent-foreground: 210 20% 98%;
@@ -177,6 +177,29 @@
 @layer base {
   * {
     @apply border-border;
+  }
+
+  /* Skip link for accessibility */
+  .skip-link {
+    @apply sr-only;
+  }
+  
+  .skip-link:focus {
+    @apply not-sr-only fixed top-4 left-4 z-[100] px-4 py-2 bg-brand-500 text-white rounded-lg font-medium shadow-lg;
+  }
+
+  /* Enhanced focus styles for keyboard navigation */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+  
+  :focus:not(:focus-visible) {
+    @apply outline-none;
+  }
+  
+  button:focus-visible,
+  a:focus-visible {
+    @apply ring-2 ring-brand-500 ring-offset-2 ring-offset-background;
   }
 
   html {
@@ -283,9 +306,9 @@
     scrollbar-color: hsl(var(--neutral-600)) hsl(var(--muted));
   }
 
-  /* Smooth transitions */
-  * {
-    transition: colors 150ms ease;
+  /* Smooth transitions - scoped to interactive elements only */
+  a, button, [role="button"] {
+    @apply transition-colors duration-150;
   }
 
   /* Enhanced glass effect with better browser compatibility */
@@ -466,6 +489,22 @@
       opacity: 0;
       transform: scale(1.2);
     }
+  }
+
+  /* Smoother scroll indicator animation */
+  @keyframes scroll-indicator {
+    0%, 100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 0.4;
+    }
+  }
+
+  .scroll-indicator {
+    animation: scroll-indicator 2s ease-in-out infinite;
   }
 
   /* Hide scrollbar for tech stack slider */

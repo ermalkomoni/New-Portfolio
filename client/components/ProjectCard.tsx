@@ -85,95 +85,37 @@ const ActionButton = memo(({
 
 ActionButton.displayName = 'ActionButton';
 
+// Static class names - no need for useMemo with empty deps
+const cardClasses = cn(
+  "relative rounded-2xl border border-border bg-card p-1 shadow-lg transition-all duration-500",
+  "hover:shadow-2xl hover:shadow-brand-500/10 hover:-translate-y-1"
+);
+const imageClasses = "w-full h-full object-cover transition-transform duration-500 group-hover/image:scale-105";
+const titleClasses = "text-2xl lg:text-3xl font-bold text-foreground mb-2 group-hover:text-brand-500 transition-colors";
+const descriptionClasses = "text-muted-foreground leading-relaxed text-lg";
+const techStackSectionClasses = "space-y-3";
+const techStackTitleClasses = "text-sm font-semibold text-foreground uppercase tracking-wider";
+const techStackContainerClasses = "flex flex-wrap gap-2";
+const glowEffectClasses = "absolute inset-0 rounded-2xl bg-gradient-to-r from-brand-500/5 via-transparent to-brand-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none";
+const imageOverlayClasses = "absolute inset-0 bg-brand-500/20 rounded-xl opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-center justify-center";
+const gradientLineClasses = "h-1 w-20 bg-gradient-to-r from-brand-500 to-brand-300 rounded-full";
+
 // Memoized ProjectCard component
 const ProjectCard = memo(({ project, index }: ProjectCardProps) => {
-  const isReversed = useMemo(() => index % 2 === 1, [index]);
+  const isReversed = index % 2 === 1;
 
-  // Memoize class names to prevent recalculation
-  const cardClasses = useMemo(() => cn(
-    "relative rounded-2xl border border-border bg-card p-1 shadow-lg transition-all duration-500",
-    "hover:shadow-2xl hover:shadow-brand-500/10 hover:-translate-y-1"
-  ), []);
-
+  // Only memoize classes that actually depend on props
   const containerClasses = useMemo(() => cn(
     "flex flex-col lg:flex-row items-center gap-8 p-6 lg:p-8",
     isReversed && "lg:flex-row-reverse"
   ), [isReversed]);
 
-  const imageClasses = useMemo(() => cn(
-    "w-full h-full object-cover transition-transform duration-500 group-hover/image:scale-105"
-  ), []);
-
-  const titleClasses = useMemo(() => cn(
-    "text-2xl lg:text-3xl font-bold text-foreground mb-2 group-hover:text-brand-500 transition-colors"
-  ), []);
-
-  const descriptionClasses = useMemo(() => cn(
-    "text-muted-foreground leading-relaxed text-lg"
-  ), []);
-
-  const techStackSectionClasses = useMemo(() => cn(
-    "space-y-3"
-  ), []);
-
-  const techStackTitleClasses = useMemo(() => cn(
-    "text-sm font-semibold text-foreground uppercase tracking-wider"
-  ), []);
-
-  const techStackContainerClasses = useMemo(() => cn(
-    "flex flex-wrap gap-2"
-  ), []);
-
-  const actionButtonsClasses = useMemo(() => cn(
-    "flex gap-4 pt-2"
-  ), []);
-
-  const glowEffectClasses = useMemo(() => cn(
-    "absolute inset-0 rounded-2xl bg-gradient-to-r from-brand-500/5 via-transparent to-brand-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-  ), []);
-
-  const imageOverlayClasses = useMemo(() => cn(
-    "absolute inset-0 bg-brand-500/20 rounded-xl opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-center justify-center"
-  ), []);
-
-  const imageOverlayTextClasses = useMemo(() => cn(
-    "text-white font-medium text-lg"
-  ), []);
-
-  const gradientLineClasses = useMemo(() => cn(
-    "h-1 w-20 bg-gradient-to-r from-brand-500 to-brand-300 rounded-full"
-  ), []);
-
-  // Memoize tech stack rendering
+  // Memoize tech stack rendering since it depends on project data
   const techStackElements = useMemo(() => 
     project.techStack.map((tech) => (
       <TechBadge key={tech.name} tech={tech} />
     )), [project.techStack]
   );
-
-  // Memoize action buttons
-  const actionButtons = useMemo(() => (
-    <div className={actionButtonsClasses}>
-      {project.githubUrl && (
-        <ActionButton
-          href={project.githubUrl}
-          icon={Github}
-          variant="secondary"
-        >
-          Code
-        </ActionButton>
-      )}
-      {project.liveUrl && (
-        <ActionButton
-          href={project.liveUrl}
-          icon={ExternalLink}
-          variant="primary"
-        >
-          Live Demo
-        </ActionButton>
-      )}
-    </div>
-  ), [project.githubUrl, project.liveUrl, actionButtonsClasses]);
 
   return (
     <div className="group relative">
@@ -195,7 +137,7 @@ const ProjectCard = memo(({ project, index }: ProjectCardProps) => {
                 </div>
                 {/* Image overlay on hover */}
                 <div className={imageOverlayClasses}>
-                  <div className={imageOverlayTextClasses}>View Project</div>
+                  <span className="text-white font-medium text-lg">View Project</span>
                 </div>
               </div>
             </div>
@@ -226,7 +168,26 @@ const ProjectCard = memo(({ project, index }: ProjectCardProps) => {
               </div>
 
               {/* Action Buttons */}
-              {actionButtons}
+              <div className="flex gap-4 pt-2">
+                {project.githubUrl && (
+                  <ActionButton
+                    href={project.githubUrl}
+                    icon={Github}
+                    variant="secondary"
+                  >
+                    Code
+                  </ActionButton>
+                )}
+                {project.liveUrl && (
+                  <ActionButton
+                    href={project.liveUrl}
+                    icon={ExternalLink}
+                    variant="primary"
+                  >
+                    Live Demo
+                  </ActionButton>
+                )}
+              </div>
             </div>
           </div>
         </div>

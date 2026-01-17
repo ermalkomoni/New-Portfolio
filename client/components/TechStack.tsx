@@ -13,20 +13,20 @@ interface TechStackProps {
   direction?: "left" | "right";
 }
 
-// Memoized TechIcon component for performance optimization
-const TechIcon = memo(({ 
-  tech, 
-  index, 
-  isCenter, 
-  distanceFromCenter,
-  onClick
-}: { 
-  tech: TechItem; 
-  index: number;
-  isCenter: boolean;
-  distanceFromCenter: number;
-  onClick: () => void;
-}) => {
+  // Memoized TechIcon component for performance optimization
+  const TechIcon = memo(({ 
+    tech, 
+    index, 
+    isCenter, 
+    distanceFromCenter,
+    onClick
+  }: { 
+    tech: TechItem; 
+    index: number;
+    isCenter: boolean;
+    distanceFromCenter: number;
+    onClick: () => void;
+  }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   // Memoize expensive calculations to prevent recalculation on every render
@@ -112,6 +112,22 @@ const TechIcon = memo(({
   );
 });
 
+const [touchStart, setTouchStart] = useState(0);
+
+const handleTouchStart = (e: React.TouchEvent) => {
+  setTouchStart(e.touches[0].clientX);
+};
+
+const handleTouchEnd = (e: React.TouchEvent) => {
+  const touchEnd = e.changedTouches[0].clientX;
+  const diff = touchStart - touchEnd;
+
+  if(Math.abs(diff) > 50) {
+    if(diff > 0) shiftRight();
+    else shiftLeft();
+  }
+};
+
 // Set display name for debugging
 TechIcon.displayName = 'TechIcon';
 
@@ -123,6 +139,16 @@ const TechStack = memo(({ title, technologies, direction = "left" }: TechStackPr
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartX, setDragStartX] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check for mobile device
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Always show 9 items, so we need to create a window of 7 items
   const ITEMS_TO_SHOW = 9;
@@ -258,6 +284,34 @@ const TechStack = memo(({ title, technologies, direction = "left" }: TechStackPr
     }
   }, [isDragging, shiftLeft, shiftRight]);
 
+  // Touch swipe handlers for mobile devices
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    
+    // Swipe threshold of 50px
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        shiftRight(); // Swipe left -> move right
+      } else {
+        shiftLeft(); // Swipe right -> move left
+      }
+    }
+  }, [touchStartX, shiftLeft, shiftRight]);
+
+  // Mouse hover handlers (only for non-mobile)
+  const handleMouseEnter = useCallback(() => {
+    if (!isMobile) setIsHovered(true);
+  }, [isMobile]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!isMobile) setIsHovered(false);
+  }, [isMobile]);
+
   // Memoize expensive visible items calculation
   const visibleItems = useMemo(() => {
     const startIndex = centerIndex - 4; // Show 4 items to the left
@@ -295,17 +349,11 @@ const TechStack = memo(({ title, technologies, direction = "left" }: TechStackPr
         {/* Tech Icons Carousel - Always Show 7 Items */}
         <div
           ref={containerRef}
-          className="w-full overflow-visible"
-          onMouseEnter={
-            window.innerWidth >= 768
-              ? () => setIsHovered(true)
-              : null
-          }
-          onMouseLeave={
-            window.innerWidth >= 768
-              ? () => setIsHovered(false)
-              : null
-          }
+          className="w-full overflow-visible touch-pan-y"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           <div className="relative flex justify-center items-center py-12 px-8">
             {/* Fixed 7-item display with smooth transitions */}

@@ -112,6 +112,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   const mousePosition = MousePosition()
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
   const [isMobile, setIsMobile] = useState(false)
+  const [isVisible, setIsVisible] = useState(true) // Track visibility for performance
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 })
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1
   const rafID = useRef<number | null>(null)
@@ -145,6 +146,18 @@ export const Particles: React.FC<ParticlesProps> = ({
 
     window.addEventListener("resize", handleResize)
 
+    // Intersection Observer to pause animation when not visible (performance optimization)
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      { threshold: 0.1 }
+    )
+    
+    if (canvasContainerRef.current) {
+      observer.observe(canvasContainerRef.current)
+    }
+
     return () => {
       if (rafID.current != null) {
         window.cancelAnimationFrame(rafID.current)
@@ -154,6 +167,7 @@ export const Particles: React.FC<ParticlesProps> = ({
       }
       window.removeEventListener("resize", handleResize)
       window.removeEventListener('resize', checkIsMobile)
+      observer.disconnect()
     }
   }, [color])
 
@@ -280,6 +294,12 @@ export const Particles: React.FC<ParticlesProps> = ({
   }
 
   const animate = () => {
+    // Skip expensive rendering when not visible (performance optimization)
+    if (!isVisible) {
+      rafID.current = window.requestAnimationFrame(animate)
+      return
+    }
+    
     clearContext()
     circles.current.forEach((circle: Circle, i: number) => {
       // Handle the alpha value

@@ -414,7 +414,7 @@ export default function ExperienceSection() {
                       job.isCurrentJob 
                         ? 'bg-gradient-to-br from-brand-500/10 via-brand-400/5 to-brand-600/10 border-brand-500/50' 
                         : 'bg-card border-border'
-                    } hover:scale-[1.02]`}
+                    } hover:-translate-y-1`}
                     whileHover={job.isCurrentJob ? { 
                       boxShadow: "0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(59, 130, 246, 0.04)" 
                     } : {

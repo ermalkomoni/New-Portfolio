@@ -34,7 +34,7 @@ const App = () => {
 
   // Simulate loading time and ensure preloader shows for minimum duration
   useEffect(() => {
-    const minLoadingTime = 2000; // Minimum 2 seconds
+    const minLoadingTime = 1200; // Reduced from 2s to 1.2s for better perceived performance
     const startTime = Date.now();
 
     const checkLoadingComplete = () => {
@@ -69,10 +69,18 @@ const App = () => {
           <Sonner />
           {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
           {(!isLoading || preloaderComplete) && (
-            <div className="min-h-screen w-full">
-              <Header />
-              <Index />
-            </div>
+            <>
+              {/* Skip link for accessibility - keyboard users can skip to main content */}
+              <a href="#main-content" className="skip-link">
+                Skip to main content
+              </a>
+              <div className="min-h-screen w-full">
+                <Header />
+                <main id="main-content">
+                  <Index />
+                </main>
+              </div>
+            </>
           )}
         </SmoothScrollProvider>
       </TooltipProvider>
