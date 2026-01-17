@@ -211,11 +211,9 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    background: radial-gradient(ellipse at top, hsl(var(--brand-950)) 0%, hsl(var(--background)) 50%);
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    /* FIXED: Removed min-height constraints that were causing cropping */
   }
 
   #root {
@@ -223,10 +221,9 @@
     /* Let content flow naturally */
   }
 
-  /* FIXED: Simplified safe area handling */
+  /* Safe area handling - only for horizontal and bottom edges, not top */
   @supports (padding: env(safe-area-inset-top)) {
     body {
-      padding-top: env(safe-area-inset-top);
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
       padding-bottom: env(safe-area-inset-bottom);
@@ -240,9 +237,15 @@
     box-sizing: border-box;
   }
 
-  /* Ensure no white background shows through */
-  html, body {
+  /* Background gradient on html to extend to very top (beyond safe area) */
+  html {
+    background: radial-gradient(ellipse at top, hsl(var(--brand-950)) 0%, hsl(var(--background)) 50%);
     background-color: hsl(var(--background));
+    background-attachment: fixed;
+  }
+  
+  body {
+    background: transparent;
   }
 
   /* FIXED: Removed the pseudo-element that was interfering with Dynamic Island */
@@ -258,7 +261,11 @@
     width: 100%;
   }
   
-  /* FIXED: Simplified header without complex safe area calculations */
+  /* Safe area padding utility for Dynamic Island */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  
   .header-adaptive {
     position: fixed;
     top: 0;
