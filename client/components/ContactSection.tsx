@@ -90,7 +90,33 @@ export default function ContactSection() {
     }
   };
 
-  // Removed auto-focus behavior - it can be jarring on mobile and triggers keyboard unexpectedly
+  // Auto-focus the name input when the form comes into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && nameInputRef.current) {
+            // Small delay to ensure smooth animation completion
+            setTimeout(() => {
+              nameInputRef.current?.focus();
+            }, 1000);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const formElement = document.getElementById('contact-form');
+    if (formElement) {
+      observer.observe(formElement);
+    }
+
+    return () => {
+      if (formElement) {
+        observer.unobserve(formElement);
+      }
+    };
+  }, []);
 
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
