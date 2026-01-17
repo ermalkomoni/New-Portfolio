@@ -112,22 +112,6 @@ interface TechStackProps {
   );
 });
 
-const [touchStart, setTouchStart] = useState(0);
-
-const handleTouchStart = (e: React.TouchEvent) => {
-  setTouchStart(e.touches[0].clientX);
-};
-
-const handleTouchEnd = (e: React.TouchEvent) => {
-  const touchEnd = e.changedTouches[0].clientX;
-  const diff = touchStart - touchEnd;
-
-  if(Math.abs(diff) > 50) {
-    if(diff > 0) shiftRight();
-    else shiftLeft();
-  }
-};
-
 // Set display name for debugging
 TechIcon.displayName = 'TechIcon';
 
