@@ -34,7 +34,7 @@ const App = () => {
 
   // Simulate loading time and ensure preloader shows for minimum duration
   useEffect(() => {
-    const minLoadingTime = 1200; // Reduced from 2s to 1.2s for better perceived performance
+    const minLoadingTime = 1000;
     const startTime = Date.now();
 
     const checkLoadingComplete = () => {

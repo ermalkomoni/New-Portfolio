@@ -241,7 +241,7 @@
   html {
     background: radial-gradient(ellipse at top, hsl(var(--brand-950)) 0%, hsl(var(--background)) 50%);
     background-color: hsl(var(--background));
-    background-attachment: fixed;
+    background-attachment: scroll;
   }
   
   body {
