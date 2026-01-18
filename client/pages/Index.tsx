@@ -33,7 +33,7 @@ export default function Index() {
         {/* Particles Background */}
         <Particles
           className="absolute inset-0 z-0"
-          quantity={20}
+          quantity={30}
           ease={80}
           color="#3b82f6"
           size={0.4}
