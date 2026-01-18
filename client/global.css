@@ -239,9 +239,9 @@
 
   /* Background gradient on html to extend to very top (beyond safe area) */
   html {
-    background: radial-gradient(ellipse at top, hsl(var(--brand-950)) 0%, hsl(var(--background)) 50%);
+    background: radial-gradient(ellipse at top, hsl(var(--brand-950)) 0%, hsl(var(--background)) 60%);
     background-color: hsl(var(--background));
-    background-attachment: scroll;
+    background-attachment: fixed;
   }
   
   body {
