@@ -48,7 +48,7 @@ const projects = [
   {
     title: "SnapSend",
     description: "A cross-platform web app built with .NET and React, enabling users to securely share self-destructing passwords or files through an intuitive interface with customizable expiration times, featuring a futuristic glowing design and strong encryption for maximum privacy.",
-    image: "/snapsend.webp",
+    image: "/snapsend-thumbnail.webp",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "React JS", color: "#0066CC" },
@@ -59,7 +59,7 @@ const projects = [
   {
     title: "Sales Management System",
     description: "A .NET and React JS app for efficient sales management, including product, sales, and invoice management with real-time information.",
-    image: "/salessystem.webp",
+    image: "/salessystem-thumbnail.webp",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "React JS", color: "#61DAFB" }
