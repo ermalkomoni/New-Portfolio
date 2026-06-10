@@ -16,7 +16,8 @@ const projects = [
       { name: "FastAPI", color: "#239120" },
       { name: "AI Matching", color: "#635BFF" }
     ],
-    githubUrl: "https://github.com/ermalkomoni/HealthCare-Appointment-Management-System"
+    githubUrl: "https://github.com/ermalkomoni/HealthCare-Appointment-Management-System",
+    liveUrl: "https://vitalink-ai.netlify.app/"
   },
   {
     title: "Troja Restaurant",
