@@ -4,9 +4,25 @@ import React, { memo, useMemo, useCallback } from "react";
 
 const projects = [
   {
+    title: "Vitalink",
+    description: "An AI-powered patient portal that matches you with the right specialist and manages appointments & care in one place.",
+    image: "/vitalink-thumbnail.webp",
+    techStack: [
+      { name: ".NET", color: "#61DAFB" },
+      { name: "Next.js", color: "#0066CC" },
+      { name: "C#", color: "#239120" },
+      { name: "TypeScript", color: "#CC2927" },
+      { name: "PostgreSQL", color: "#3178C6" },
+      { name: "FastAPI", color: "#239120" },
+      { name: "AI Matching", color: "#635BFF" }
+    ],
+    githubUrl: "https://github.com/ermalkomoni/HealthCare-Appointment-Management-System",
+    liveUrl: "https://vitalink-ai.netlify.app/"
+  },
+  {
     title: "Troja Restaurant",
     description: "A cross-platform web application built with .NET MVC that enables users to purchase food, make online reservations, and process payments securely through Stripe.",
-    image: "/image.webp",
+    image: "/troja-thumbnail.webp",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "MVC", color: "#0066CC" },
@@ -20,7 +36,7 @@ const projects = [
   {
     title: "TrustGuard",
     description: "A cross-platform web app with .NET and React, enabling easy purchase of diverse insurance policies with secure Stripe payments and comprehensive admin management.",
-    image: "/trustguard.webp",
+    image: "/trustguard-thumbnail.webp",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "React JS", color: "#61DAFB" },
@@ -33,7 +49,7 @@ const projects = [
   {
     title: "SnapSend",
     description: "A cross-platform web app built with .NET and React, enabling users to securely share self-destructing passwords or files through an intuitive interface with customizable expiration times, featuring a futuristic glowing design and strong encryption for maximum privacy.",
-    image: "/snapsend.webp",
+    image: "/snapsend-thumbnail.webp",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "React JS", color: "#0066CC" },
@@ -44,26 +60,26 @@ const projects = [
   {
     title: "Sales Management System",
     description: "A .NET and React JS app for efficient sales management, including product, sales, and invoice management with real-time information.",
-    image: "/salessystem.webp",
+    image: "/salessystem-thumbnail.webp",
     techStack: [
       { name: ".NET", color: "#512BD4" },
       { name: "React JS", color: "#61DAFB" }
     ],
     githubUrl: "https://github.com/Bleronn/SMS",
-  },
-  {
-    title: "Modern Retail Marketplace",
-    description: "An interactive retail website, inspired by Nike. It offers a modern and captivating user interface, easy navigation, and an extensive selection of athletic products.",
-    image: "/ecommerce-project.webp",
-    techStack: [
-      { name: "HTML", color: "#512BD4" },
-      { name: "CSS", color: "#0066CC" },
-      { name: "JavaScript", color: "#239120" },
-      { name: "PixiJS", color: "#0066CC" }
-    ],
-    githubUrl: "https://github.com/ermalkomoni/Modern-Retail-Marketplace",
-    liveUrl: "https://retail-marketplace.netlify.app/"
   }
+  // {
+  //   title: "Modern Retail Marketplace",
+  //   description: "An interactive retail website, inspired by Nike. It offers a modern and captivating user interface, easy navigation, and an extensive selection of athletic products.",
+  //   image: "/ecommerce-project.webp",
+  //   techStack: [
+  //     { name: "HTML", color: "#512BD4" },
+  //     { name: "CSS", color: "#0066CC" },
+  //     { name: "JavaScript", color: "#239120" },
+  //     { name: "PixiJS", color: "#0066CC" }
+  //   ],
+  //   githubUrl: "https://github.com/ermalkomoni/Modern-Retail-Marketplace",
+  //   liveUrl: "https://retail-marketplace.netlify.app/"
+  // }
 ];
 
 // Memoized Project Item Component
