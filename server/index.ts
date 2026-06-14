@@ -3,7 +3,6 @@ import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleContact } from "./routes/contact";
-import { handleEmailFallback } from "./routes/email-fallback";
 
 export function createServer() {
   const app = express();
@@ -20,15 +19,8 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
-  
-  // Use fallback email handler in production if email config is not available
-  const hasEmailConfig = process.env.EMAIL_USER && process.env.EMAIL_PASS;
-  if (hasEmailConfig) {
-    app.post("/api/contact", handleContact);
-  } else {
-    console.log('Email configuration not found, using fallback handler');
-    app.post("/api/contact", handleEmailFallback);
-  }
+
+  app.post("/api/contact", handleContact);
 
   return app;
 }
