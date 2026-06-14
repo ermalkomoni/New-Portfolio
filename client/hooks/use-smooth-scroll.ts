@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 
-interface SmoothScrollOptions {
+export interface SmoothScrollOptions {
   frameRate?: number;
   animationTime?: number;
   stepSize?: number;
@@ -77,7 +77,7 @@ export const useSmoothScroll = (options: SmoothScrollOptions = {}) => {
     };
   })();
 
-  const requestFrame = (callback: () => void, element: Element, delay: number) => {
+  const requestFrame = (callback: FrameRequestCallback, element: Element, delay: number) => {
     return requestAnimationFrame(callback);
   };
 
