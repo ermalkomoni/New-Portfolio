@@ -133,6 +133,8 @@ const ProjectCard = memo(({ project, index }: ProjectCardProps) => {
                     alt={project.title}
                     className={imageClasses}
                     loading="lazy"
+                    width={640}
+                    height={360}
                   />
                 </div>
                 {/* Image overlay on hover */}
