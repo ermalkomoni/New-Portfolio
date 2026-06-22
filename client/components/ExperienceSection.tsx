@@ -10,7 +10,7 @@ const workExperience = [
     period: "Jan 2023 - Jun 2024", 
     location: "Pristina - Onsite",
     description: "Developed and maintained web applications using modern technologies, collaborated with design teams, and implemented responsive user interfaces for client projects.",
-    technologies: ["C#", ".NET", "JavaScript", "SQL Server", "PostgreSQL"],
+    technologies: ["C#", ".NET", "MVC", "Razor Pages", "JavaScript", "SQL Server", "PostgreSQL"],
     isCurrentJob: false
   },
   {
@@ -28,7 +28,7 @@ const workExperience = [
     period: "Dec 2025 - Present",
     location: "Pristina / Amsterdam - Hybrid",
     description: "Engineering healthcare solutions tailored for the Netherlands market. Building intelligent applications with AI-powered features to enhance operational efficiency and improve patient care quality.",
-    technologies: ["C#", ".NET", "Next JS", "Python", "AI", "Elastic Search", "Azure", "PostgreSQL"],
+    technologies: ["C#", ".NET", "Next.js", "Python", "AI", "RAG", "Elastic Search", "Azure", "PostgreSQL"],
     isCurrentJob: true
   }
 ];
