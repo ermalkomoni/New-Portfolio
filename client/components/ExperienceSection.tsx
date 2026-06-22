@@ -7,8 +7,8 @@ const workExperience = [
   {
     company: "SPINP Agency",
     position: "Software Developer",
-    period: "June 2023 - June 2024", 
-    location: "Kosovo - Onsite",
+    period: "Jan 2023 - Jun 2024", 
+    location: "Pristina - Onsite",
     description: "Developed and maintained web applications using modern technologies, collaborated with design teams, and implemented responsive user interfaces for client projects.",
     technologies: ["C#", ".NET", "JavaScript", "SQL Server", "PostgreSQL"],
     isCurrentJob: false
@@ -16,8 +16,8 @@ const workExperience = [
   {
     company: "Swiss GRC",
     position: "Solution Engineer",
-    period: "July 2024 - November 2025",
-    location: "Switzerland - Remote",
+    period: "Jul 2024 - Nov 2025",
+    location: "Lucerne - Remote",
     description: "Contributed on solution engineering initiatives, developing enterprise-level applications, and collaborating with cross-functional teams to deliver innovative software solutions.",
     technologies: ["C#", ".NET", "Azure", "JavaScript", "React JS", "SQL Server", "SharePoint"],
     isCurrentJob: false
@@ -25,8 +25,8 @@ const workExperience = [
   {
     company: "Visiar HealthCare",
     position: "Software Engineer",
-    period: "December 2025 - Present",
-    location: "Netherlands - Hybrid",
+    period: "Dec 2025 - Present",
+    location: "Pristina / Amsterdam - Hybrid",
     description: "Engineering healthcare solutions tailored for the Netherlands market. Building intelligent applications with AI-powered features to enhance operational efficiency and improve patient care quality.",
     technologies: ["C#", ".NET", "Next JS", "Python", "AI", "Elastic Search", "Azure", "PostgreSQL"],
     isCurrentJob: true
