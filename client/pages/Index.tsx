@@ -56,6 +56,8 @@ export default function Index() {
                   <img
                     src="/Cropimageproject.webp"
                     alt="Ermal Komoni"
+                    loading="eager"
+                    fetchPriority="high"
                   />
                 </div>
 

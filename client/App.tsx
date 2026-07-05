@@ -32,30 +32,32 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [preloaderComplete, setPreloaderComplete] = useState(false);
 
-  // Simulate loading time and ensure preloader shows for minimum duration
   useEffect(() => {
     const minLoadingTime = 1000;
     const startTime = Date.now();
 
-    const checkLoadingComplete = () => {
+    const decodeImage = (src: string): Promise<void> => {
+      const img = new Image();
+      img.src = src;
+      const waitForDecode = () => img.decode().catch(() => {});
+      if (img.complete) return waitForDecode();
+      return new Promise((resolve) => {
+        img.onload = () => waitForDecode().then(resolve);
+        img.onerror = () => resolve();
+      });
+    };
+
+    const initialize = async () => {
       const elapsed = Date.now() - startTime;
       const remainingTime = Math.max(0, minLoadingTime - elapsed);
-      
-      setTimeout(() => {
-        setIsLoading(false);
-      }, remainingTime);
+      await Promise.all([
+        new Promise<void>((resolve) => setTimeout(resolve, remainingTime)),
+        decodeImage('/Cropimageproject.webp'),
+      ]);
+      setIsLoading(false);
     };
 
-    // Check if page is fully loaded
-    if (document.readyState === 'complete') {
-      checkLoadingComplete();
-    } else {
-      window.addEventListener('load', checkLoadingComplete);
-    }
-
-    return () => {
-      window.removeEventListener('load', checkLoadingComplete);
-    };
+    initialize();
   }, []);
 
   const handlePreloaderComplete = () => {

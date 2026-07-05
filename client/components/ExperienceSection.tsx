@@ -7,17 +7,17 @@ const workExperience = [
   {
     company: "SPINP Agency",
     position: "Software Developer",
-    period: "June 2023 - June 2024", 
-    location: "Kosovo - Onsite",
+    period: "Jan 2023 - Jun 2024", 
+    location: "Pristina - Onsite",
     description: "Developed and maintained web applications using modern technologies, collaborated with design teams, and implemented responsive user interfaces for client projects.",
-    technologies: ["C#", ".NET", "JavaScript", "SQL Server", "PostgreSQL"],
+    technologies: ["C#", ".NET", "MVC", "Razor Pages", "JavaScript", "SQL Server", "PostgreSQL"],
     isCurrentJob: false
   },
   {
     company: "Swiss GRC",
     position: "Solution Engineer",
-    period: "July 2024 - November 2025",
-    location: "Switzerland - Remote",
+    period: "Jul 2024 - Nov 2025",
+    location: "Lucerne - Remote",
     description: "Contributed on solution engineering initiatives, developing enterprise-level applications, and collaborating with cross-functional teams to deliver innovative software solutions.",
     technologies: ["C#", ".NET", "Azure", "JavaScript", "React JS", "SQL Server", "SharePoint"],
     isCurrentJob: false
@@ -25,10 +25,10 @@ const workExperience = [
   {
     company: "Visiar HealthCare",
     position: "Software Engineer",
-    period: "December 2025 - Present",
-    location: "Netherlands - Hybrid",
+    period: "Dec 2025 - Present",
+    location: "Pristina / Amsterdam - Hybrid",
     description: "Engineering healthcare solutions tailored for the Netherlands market. Building intelligent applications with AI-powered features to enhance operational efficiency and improve patient care quality.",
-    technologies: ["C#", ".NET", "Next JS", "Python", "AI", "Elastic Search", "Azure", "PostgreSQL"],
+    technologies: ["C#", ".NET", "Next.js", "Python", "AI", "RAG", "Elastic Search", "Azure", "PostgreSQL"],
     isCurrentJob: true
   }
 ];
@@ -38,6 +38,7 @@ const backendTech = [
     name: "SignalR",
     logo: (
       <img
+        loading="lazy"
         src="/SignalR.webp" 
         alt="SignalR Logo" 
         className="w-full h-full"
@@ -49,6 +50,7 @@ const backendTech = [
     name: "HTML5",
     logo: (
       <img
+        loading="lazy"
         src="/html.webp" 
         alt="HTML Logo" 
         className="w-full h-full"
@@ -60,6 +62,7 @@ const backendTech = [
     name: "CSS3",
     logo: (
       <img
+        loading="lazy"
         src="/css.webp" 
         alt="CSS Logo" 
         className="w-full h-full"
@@ -71,6 +74,7 @@ const backendTech = [
     name: "PHP",
     logo: (
       <img
+        loading="lazy"
         src="/php.webp" 
         alt="PHP Logo" 
         className="w-full h-full"
@@ -91,6 +95,7 @@ const backendTech = [
     name: "C#",
     logo: (
       <img
+        loading="lazy"
         src="/csharp.webp" 
         alt="C# Logo" 
         className="w-full h-full"
@@ -131,6 +136,7 @@ const backendTech = [
     name: "React JS",
     logo: (
       <img
+        loading="lazy"
         src="/react.webp" 
         alt="React JS Logo" 
         className="w-full h-full"
@@ -142,6 +148,7 @@ const backendTech = [
     name: "Angular",
     logo: (
       <img
+        loading="lazy"
         src="/angular.webp" 
         alt="Angular Logo" 
       />
@@ -152,6 +159,7 @@ const backendTech = [
     name: "SQL Server",
     logo: (
       <img
+        loading="lazy"
         src="/sqlserver.webp" 
         alt="SQL Server Logo" 
         className="w-full h-full"
@@ -163,6 +171,7 @@ const backendTech = [
     name: "PostgreSQL",
     logo: (
       <img
+        loading="lazy"
         src="/postgresql.webp" 
         alt="PostgreSQL Logo" 
         className="w-full h-full"
@@ -174,6 +183,7 @@ const backendTech = [
     name: "Kubernets",
     logo: (
       <img
+        loading="lazy"
         src="/kubernets.webp" 
         alt="Kubernetes Logo" 
         className="w-full h-full"
@@ -185,6 +195,7 @@ const backendTech = [
     name: "RabbitMQ",
     logo: (
       <img
+        loading="lazy"
         src="/RabbitMQ.webp" 
         alt="RabbitMQ Logo" 
         className="w-full h-full"
