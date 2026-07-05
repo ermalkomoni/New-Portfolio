@@ -10,14 +10,25 @@ const projects = [
     techStack: [
       { name: ".NET", color: "#61DAFB" },
       { name: "Next.js", color: "#0066CC" },
-      { name: "C#", color: "#239120" },
-      { name: "TypeScript", color: "#CC2927" },
-      { name: "PostgreSQL", color: "#3178C6" },
+      { name: "PostgreSQL", color: "#CC2927" },
       { name: "FastAPI", color: "#239120" },
       { name: "AI Matching", color: "#635BFF" }
     ],
     githubUrl: "https://github.com/ermalkomoni/HealthCare-Appointment-Management-System",
     liveUrl: "https://vitalink-ai.netlify.app/"
+  },
+  {
+    title: "SnapSend",
+    description: "A zero-knowledge, one-time secret sharing app that encrypts everything in your browser, the server never sees the plaintext, and every link self-destructs after reading.",
+    image: "/snapsend-thumbnail.png",
+    techStack: [
+      { name: ".NET", color: "#61DAFB" },
+      { name: "Next.js", color: "#0066CC" },
+      { name: "Redis", color: "#CC2927" },
+      { name: "Web Crypto API", color: "#635BFF" }
+    ],
+    githubUrl: "https://github.com/ermalkomoni/SnapSendAI",
+    liveUrl: "https://snapsend-ai.netlify.app/"
   },
   {
     title: "Troja Restaurant",
@@ -45,17 +56,6 @@ const projects = [
       { name: "Stripe", color: "#635BFF" }
     ],
     githubUrl: "https://github.com/ermalkomoni/TrustGuard-Rebranded"
-  },
-  {
-    title: "SnapSend",
-    description: "A cross-platform web app built with .NET and React, enabling users to securely share self-destructing passwords or files through an intuitive interface with customizable expiration times, featuring a futuristic glowing design and strong encryption for maximum privacy.",
-    image: "/snapsend-thumbnail.webp",
-    techStack: [
-      { name: ".NET", color: "#512BD4" },
-      { name: "React JS", color: "#0066CC" },
-      { name: "C#", color: "#239120" }
-    ],
-    githubUrl: "https://github.com/ermalkomoni/troja-restaurant",
   },
   {
     title: "Sales Management System",
